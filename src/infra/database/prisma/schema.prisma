@@ -1,0 +1,35 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Pizza {
+  id          Int      @id @default(autoincrement())
+  name        String   @unique
+  description String
+  price       Float
+  createdAt   DateTime @default(now())
+  Order       Order[]
+}
+
+model Order {
+  id        String      @id @default(cuid())
+  index     Int         @default(autoincrement())
+  pizzaId   Int
+  quantity  Int         @default(1)
+  status    OrderStatus @default(Pending)
+  createdAt DateTime    @default(now())
+
+  pizza Pizza @relation(fields: [pizzaId], references: [id])
+}
+
+enum OrderStatus {
+  Pending
+  InPreparation
+  ReadyForPickup
+  Completed
+}
