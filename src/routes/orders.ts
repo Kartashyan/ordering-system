@@ -1,7 +1,8 @@
 import { Router } from "express";
+import { createOrderController } from "../infra/CreateOrderController";
 const router = Router();
 
-router.post("/", async (req, res) => {});
+router.post("/", async (req, res) => createOrderController.execute(req, res));
 
 router.get("/:orderId", (req, res) => {});
 
