@@ -1,4 +1,4 @@
-import { Order } from "./entity/Order";
+import { Order } from "./core/Order";
 
 export interface OrderRepository {
   create(order: Order): Promise<boolean>;

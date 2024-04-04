@@ -1,5 +1,9 @@
 import { ProductItem } from "./ProductItem";
-import { OrderStatus, OrderStatuses, StatusStateManager } from "../OrderStatus";
+import {
+  OrderStatus,
+  OrderStatuses,
+  StatusStateManager,
+} from "./OrderStatusManager";
 
 export interface OrderInterface {
   id: string;
