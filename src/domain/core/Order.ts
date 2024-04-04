@@ -18,7 +18,9 @@ export class Order implements OrderInterface {
 
   private constructor(items: ProductItem[], id?: string, status?: string) {
     this.id = id || crypto.randomUUID();
-    this.status = status || OrderStatus.create(OrderStatuses.Pending).value;
+    this.status = status
+      ? OrderStatus.create(status).value
+      : OrderStatus.create(OrderStatuses.Pending).value;
     this.items = items;
   }
 
