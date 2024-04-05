@@ -13,6 +13,10 @@ export class PickupOrderStatusUsecase {
   async execute(orderData: { id: string }): Promise<UsecaseResponse> {
     const order = await this.orderRepository.find(orderData.id);
 
+    if (order.status === OrderStatuses.Completed) {
+      return { success: false, reason: "Order is already completed" };
+    }
+
     if (order.status !== OrderStatuses.ReadyForPickup) {
       return { success: false, reason: "Order is not ready for pickup" };
     }
