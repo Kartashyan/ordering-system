@@ -22,13 +22,18 @@ class CreateOrderController {
   }
   async execute(req: express.Request, res: express.Response) {
     const orderDto = req.body as OrderDto;
+    debugger;
     const dtoSafeParsed = OrderDtoSchema.safeParse(orderDto);
     if (!dtoSafeParsed.success) {
       res.status(400).send(dtoSafeParsed.error.errors);
       return;
     }
     try {
-      await this.useCase.execute(orderDto);
+      const result = await this.useCase.execute(orderDto);
+      if (!result.success) {
+        res.status(400).send(result.reason);
+        return;
+      }
       res.status(201).send("Order created");
     } catch (error: unknown) {
       res

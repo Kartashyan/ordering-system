@@ -4,6 +4,7 @@ import {
   OrderStatuses,
   StatusStateManager,
 } from "./OrderStatusManager";
+import { DomainEvent, DomainEvents } from "../DomainEvents";
 
 export interface OrderInterface {
   id: string;
@@ -29,7 +30,11 @@ export class Order implements OrderInterface {
     id?: string,
     status?: string
   ): Order {
-    return new Order(items, id, status);
+    const order = new Order(items, id, status);
+    if (order.items.length === 0) {
+      throw new Error("Order should have at least one item");
+    }
+    return order;
   }
 
   public changeStatusTo(status: string): void {
