@@ -1,7 +1,8 @@
 import { DomainEvents } from "../domain/DomainEvents";
 import { OrderRepository } from "../domain/OrderRepositoryInterface";
-import { Order } from "../domain/core/Order";
+import { Order, OrderItemProps } from "../domain/core/Order";
 import { ProductItem } from "../domain/core/ProductItem";
+import { OrderDto } from "../dto/orderDto";
 import { orderRepository } from "../infra/OrderDBRepository";
 
 type Success = { success: true };
@@ -13,11 +14,11 @@ export class CreateOrderUsecase {
   constructor(orderRepository: OrderRepository) {
     this.orderRepository = orderRepository;
   }
-  async execute(orderData: { items: ProductItem[] }): Promise<UsecaseResponse> {
-    if (orderData.items.length === 0) {
+  async execute(orderDto: OrderDto): Promise<UsecaseResponse> {
+    if (orderDto.items.length === 0) {
       return { success: false, reason: "Order should have at least one item" };
     }
-    const order = Order.create(orderData.items);
+    const order = Order.create(orderDto.items);
     const result = await this.orderRepository.create(order);
     if (!result) {
       throw new Error("Failed to create order");

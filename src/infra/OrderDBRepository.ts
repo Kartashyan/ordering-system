@@ -10,23 +10,29 @@ export class OrderRepositoryImpl implements OrderRepository {
   }
 
   async create(order: Order) {
-    return !!this.prisma.order.create({
+    debugger;
+    const result = await this.prisma.order.create({
       data: {
         id: order.id,
         status: order.status,
-        items: {
+        orderItems: {
           create: order.items.map((item) => ({
-            name: item.name,
             quantity: item.quantity,
-            price: item.price,
+            product: {
+              connect: {
+                id: item.id,
+              },
+            },
           })),
         },
       },
     });
+    debugger;
+    return result;
   }
 
   async update(order: Order) {
-    return !!this.prisma.order.update({
+    const result = await this.prisma.order.update({
       where: {
         id: order.id,
       },
@@ -34,6 +40,8 @@ export class OrderRepositoryImpl implements OrderRepository {
         status: order.status,
       },
     });
+
+    return result;
   }
 
   async find(id: string) {
@@ -42,7 +50,11 @@ export class OrderRepositoryImpl implements OrderRepository {
         id,
       },
       include: {
-        items: true,
+        orderItems: {
+          include: {
+            product: true,
+          },
+        },
       },
     });
 
@@ -50,10 +62,9 @@ export class OrderRepositoryImpl implements OrderRepository {
       throw new Error(`Order with id <${id}> not found`);
     }
 
-    const items = result.items.map((item) => ({
-      name: item.name,
+    const items = result.orderItems.map((item) => ({
+      id: item.product.id,
       quantity: item.quantity,
-      price: item.price,
     }));
 
     return Order.create(items, result.id, result.status);

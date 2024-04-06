@@ -7,19 +7,26 @@ generator client {
   provider = "prisma-client-js"
 }
 
-model ProductItem {
+model Product {
   id          Int      @id @default(autoincrement())
   name        String   @unique
-  quantity    Int      @default(1)
   price       Float
-  createdAt   DateTime @default(now())
-  order       Order[]
+  orderItems  OrderItem[]
+}
+
+model OrderItem {
+  id        Int      @id @default(autoincrement())
+  quantity  Int
+  product   Product  @relation(fields: [productId], references: [id])
+  productId Int
+  order     Order    @relation(fields: [orderId], references: [id])
+  orderId   String
 }
 
 model Order {
   id        String      @id @default(cuid())
   status    String      @default("Pending")
   createdAt DateTime    @default(now())
-  items ProductItem[] 
+  orderItems OrderItem[]
 }
 

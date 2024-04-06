@@ -2,18 +2,7 @@ import { z } from "zod";
 import { CreateOrderUsecase } from "../application/CreateOrderUsecase";
 import express from "express";
 import { orderRepository } from "./OrderDBRepository";
-
-const OrderDtoSchema = z.object({
-  items: z.array(
-    z.object({
-      name: z.string(),
-      price: z.number(),
-      quantity: z.number().min(1),
-    })
-  ),
-});
-
-type OrderDto = z.infer<typeof OrderDtoSchema>;
+import { OrderDto, OrderDtoSchema } from "../dto/orderDto";
 
 class CreateOrderController {
   private useCase: CreateOrderUsecase;
@@ -36,6 +25,7 @@ class CreateOrderController {
       }
       res.status(201).send("Order created");
     } catch (error: unknown) {
+      debugger;
       res
         .status(500)
         .send(

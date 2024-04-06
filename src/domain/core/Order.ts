@@ -1,23 +1,23 @@
-import { ProductItem } from "./ProductItem";
 import {
   OrderStatus,
   OrderStatuses,
   StatusStateManager,
 } from "./OrderStatusManager";
-import { DomainEvent, DomainEvents } from "../DomainEvents";
+
+export type OrderItemProps = { id: number; quantity: number };
 
 export interface OrderInterface {
   id: string;
   status: string;
-  items: ProductItem[];
+  items: OrderItemProps[];
 }
 
 export class Order implements OrderInterface {
   readonly id: string;
   status: string;
-  items: ProductItem[];
+  items: OrderItemProps[];
 
-  private constructor(items: ProductItem[], id?: string, status?: string) {
+  private constructor(items: OrderItemProps[], id?: string, status?: string) {
     this.id = id || crypto.randomUUID();
     this.status = status
       ? OrderStatus.create(status).value
@@ -26,7 +26,7 @@ export class Order implements OrderInterface {
   }
 
   public static create(
-    items: ProductItem[],
+    items: OrderItemProps[],
     id?: string,
     status?: string
   ): Order {

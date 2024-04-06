@@ -48,7 +48,7 @@ const pizzaData = [
 async function main() {
   console.log(`Start seeding ...`);
   for (const u of pizzaData) {
-    const pizza = await prisma.productItem.create({
+    const pizza = await prisma.product.create({
       data: u,
     });
     console.log(`Created pizza with id: ${pizza.id}`);

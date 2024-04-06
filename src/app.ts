@@ -11,7 +11,7 @@ app.use(bodyParser.json());
 
 app.use("/api/orders", ordersRouter);
 app.use("/api/menu", menuRouter);
-app.use("/api/menu", kitchenRouter);
+app.use("/api/kitchen", kitchenRouter);
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
