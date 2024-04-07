@@ -1,10 +1,11 @@
 import { Router } from "express";
 import { DomainEvents } from "../domain/DomainEvents";
-import { OrderCreatedEventPayload } from "../domain/core/OrderCreatedEvent";
 import {
   NotifyKitchenEvent,
   NotifyKitchenEventPayload,
 } from "../domain/core/NotifyKitchenEvent";
+import { OrderCreatedEventPayload } from "../domain/core/OrderCreatedEvent";
+import { getNextOrderController } from "../infra/GetNextOrderController";
 import { kitchenQueue } from "../infra/KitchenQueue";
 const router = Router();
 
@@ -22,17 +23,11 @@ DomainEvents.subscribeToEvent(
 router.get("/orders", (req, res) => {
   res.send("Return all panding orders");
 });
-router.get("/orders/next", (req, res) => {
-  //TODO: get the next order from the queue
-  if (kitchenQueue.items.length === 0) {
-    return res.send("No orders");
-  }
-  const orderId = kitchenQueue.dequeue();
-  debugger;
-  //TODO: mark order as in progress
-  //TODO: get order details and send it to the kitchen display
-  res.send(`Order ${orderId} is shown on the kitchen display`);
-});
+
+router.get("/orders/next", async (req, res) =>
+  getNextOrderController.execute(req, res)
+);
+
 router.post("/orders/:orderId/ready", (req, res) => {
   const orderId = req.params.orderId;
   //TODO: mark order as ready
