@@ -1,12 +1,12 @@
 import { Order } from "../domain/core/Order";
 
 export class KitchenQueue {
-  items: Order[];
+  items: string[];
   constructor() {
     this.items = [];
   }
-  enqueue(order: Order) {
-    this.items.push(order);
+  enqueue(orderID: string) {
+    this.items.push(orderID);
   }
   dequeue() {
     return this.items.shift();
