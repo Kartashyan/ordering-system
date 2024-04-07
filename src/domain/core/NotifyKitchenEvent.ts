@@ -1,11 +1,11 @@
-export type NotifyKitchenEventPayload = { orderId: string };
+export type NotifyKitchenEventPayload = string;
 
 export class NotifyKitchenEvent {
-  readonly type: string;
-  readonly payload: NotifyKitchenEventPayload;
+  readonly name: string;
+  readonly orderId: NotifyKitchenEventPayload;
 
   constructor(orderId: string) {
-    this.type = "notify-kitchen";
-    this.payload = { orderId };
+    this.name = "notify-kitchen";
+    this.orderId = orderId;
   }
 }

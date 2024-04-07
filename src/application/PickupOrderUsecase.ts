@@ -22,7 +22,7 @@ export class PickupOrderStatusUsecase {
     }
 
     order.changeStatusTo(OrderStatuses.Completed);
-    const result = await this.orderRepository.update(order);
+    const result = await this.orderRepository.save(order);
     if (!result) {
       throw new Error("Failed to update order status");
     }

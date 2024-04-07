@@ -19,7 +19,7 @@ export class CreateOrderUsecase {
       return { success: false, reason: "Order should have at least one item" };
     }
     const order = Order.create(orderDto.items);
-    const result = await this.orderRepository.create(order);
+    const result = await this.orderRepository.save(order);
     if (!result) {
       throw new Error("Failed to create order");
     }

@@ -7,16 +7,15 @@ import {
 import { OrderCreatedEventPayload } from "../domain/core/OrderCreatedEvent";
 import { getNextOrderController } from "../infra/GetNextOrderController";
 import { kitchenQueue } from "../infra/KitchenQueue";
+import { orderReadyController } from "../infra/OrderReadyController";
 const router = Router();
 
 DomainEvents.subscribeToEvent(
   "order-created",
   (payload: OrderCreatedEventPayload) => {
     console.log("Order created", payload);
-    //TODO: add to the kitchen queue
-    kitchenQueue.enqueue(payload.orderId);
-    debugger;
-    DomainEvents.publishEvent(new NotifyKitchenEvent(payload.orderId));
+    kitchenQueue.enqueue(payload);
+    DomainEvents.publishEvent(new NotifyKitchenEvent(payload));
   }
 );
 
@@ -28,12 +27,9 @@ router.get("/orders/next", async (req, res) =>
   getNextOrderController.execute(req, res)
 );
 
-router.post("/orders/:orderId/ready", (req, res) => {
-  const orderId = req.params.orderId;
-  //TODO: mark order as ready
-  //TODO: emit notify-customer event
-  res.send(`Order ${orderId} is ready`);
-});
+router.patch("/orders/:orderId/ready", (req, res) =>
+  orderReadyController.execute(req, res)
+);
 router.get("/events", (req, res) => {
   res.setHeader("Content-Type", "text/event-stream");
   res.setHeader("Cache-Control", "no-cache");
@@ -42,7 +38,6 @@ router.get("/events", (req, res) => {
   DomainEvents.subscribeToEvent(
     "notify-kitchen",
     (payload: NotifyKitchenEventPayload) => {
-      debugger;
       console.log("Order created", payload);
       // send a nodification to the kitchen (server sent events)
       res.write(`data: ${JSON.stringify(payload)}`);

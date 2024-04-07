@@ -11,7 +11,7 @@ export class UpdateOrderStatusUsecase {
     const order = await this.orderRepository.find(orderData.id);
     const nextStatus = StatusStateManager.getNextState(order.status);
     order.changeStatusTo(nextStatus);
-    const result = await this.orderRepository.update(order);
+    const result = await this.orderRepository.save(order);
     if (!result) {
       throw new Error("Failed to update order status");
     }

@@ -9,38 +9,28 @@ export class OrderRepositoryImpl implements OrderRepository {
     this.prisma = db;
   }
 
-  async create(order: Order) {
-    debugger;
-    const result = await this.prisma.order.create({
-      data: {
-        id: order.id,
-        status: order.status,
-        orderItems: {
-          create: order.items.map((item) => ({
-            quantity: item.quantity,
-            product: {
-              connect: {
-                id: item.id,
-              },
+  async save(order: Order) {
+    const data = {
+      id: order.id,
+      status: order.status,
+      orderItems: {
+        create: order.items.map((item) => ({
+          quantity: item.quantity,
+          product: {
+            connect: {
+              id: item.id,
             },
-          })),
-        },
+          },
+        })),
       },
-    });
-    debugger;
-    return result;
-  }
-
-  async update(order: Order) {
-    const result = await this.prisma.order.update({
+    };
+    const result = await this.prisma.order.upsert({
       where: {
         id: order.id,
       },
-      data: {
-        status: order.status,
-      },
+      create: data,
+      update: data,
     });
-
     return result;
   }
 

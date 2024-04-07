@@ -1,11 +1,11 @@
-export type OrderCreatedEventPayload = { orderId: string };
+export type OrderCreatedEventPayload = string;
 
 export class OrderCreatedEvent {
-  readonly type: string;
-  readonly payload: OrderCreatedEventPayload;
+  readonly name: string;
+  readonly orderId: OrderCreatedEventPayload;
 
   constructor(orderId: string) {
-    this.type = "order-created";
-    this.payload = { orderId };
+    this.name = "order-created";
+    this.orderId = orderId;
   }
 }

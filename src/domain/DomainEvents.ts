@@ -1,8 +1,8 @@
 import { EventEmitter } from "events";
 
 export type DomainEvent = {
-  type: string;
-  payload: any;
+  name: string;
+  [key: string]: any;
 };
 export class DomainEvents {
   private static events: DomainEvent[] = [];
