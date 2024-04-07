@@ -12,3 +12,5 @@ export class KitchenQueue {
     return this.items.shift();
   }
 }
+
+export const kitchenQueue = new KitchenQueue();
