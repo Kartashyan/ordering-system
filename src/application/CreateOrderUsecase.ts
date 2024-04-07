@@ -1,7 +1,7 @@
 import { DomainEvents } from "../domain/DomainEvents";
 import { OrderRepository } from "../domain/OrderRepositoryInterface";
-import { Order, OrderItemProps } from "../domain/core/Order";
-import { ProductItem } from "../domain/core/ProductItem";
+import { Order } from "../domain/core/Order";
+import { OrderCreatedEvent } from "../domain/core/OrderCreatedEvent";
 import { OrderDto } from "../dto/orderDto";
 import { orderRepository } from "../infra/OrderDBRepository";
 
@@ -23,10 +23,7 @@ export class CreateOrderUsecase {
     if (!result) {
       throw new Error("Failed to create order");
     }
-    DomainEvents.publishEvent({
-      type: "order-created",
-      payload: { orderId: order.id },
-    });
+    DomainEvents.publishEvent(new OrderCreatedEvent(order.id));
     return { success: true };
   }
 }
