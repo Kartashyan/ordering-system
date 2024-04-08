@@ -5,4 +5,7 @@ export class OrderReadyEvent {
     this.orderId = orderId;
     this.name = "order-ready";
   }
+  static get eventName() {
+    return this.name;
+  }
 }

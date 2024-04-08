@@ -1,0 +1,104 @@
+{
+	"info": {
+		"_postman_id": "ef0004da-5b7b-4a8d-9596-ab521bfa3063",
+		"name": "ordering-system",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "3605576"
+	},
+	"item": [
+		{
+			"name": "place-orders",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n \"items\": [{\n    \"id\": 3,\n    \"quantity\": 2 \n }]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/orders",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "kitchen-next-order",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/kitchen/orders/next",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"kitchen",
+						"orders",
+						"next"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "kitchen-ready-order",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/kitchen/orders/bec9027a-ade1-4f89-90a9-73a00a9046ef/ready",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"kitchen",
+						"orders",
+						"bec9027a-ade1-4f89-90a9-73a00a9046ef",
+						"ready"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "pickup-order",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/orders/bec9027a-ade1-4f89-90a9-73a00a9046ef/pickup",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"orders",
+						"bec9027a-ade1-4f89-90a9-73a00a9046ef",
+						"pickup"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
