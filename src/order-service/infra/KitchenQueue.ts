@@ -1,4 +1,4 @@
-import { Order } from "../domain/core/Order";
+import { Order } from "../domain/entities/Order";
 
 export class KitchenQueue {
   items: string[];

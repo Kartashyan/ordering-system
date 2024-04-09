@@ -1,5 +1,5 @@
-import { OrderRepository } from "../domain/OrderRepositoryInterface";
-import { Order } from "../domain/core/Order";
+import { OrderRepository } from "../domain/ports/OrderRepositoryInterface";
+import { Order } from "../domain/entities/Order";
 import { kitchenQueue } from "../infra/KitchenQueue";
 import { orderRepository } from "../infra/OrderDBRepository";
 import {

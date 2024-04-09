@@ -1,6 +1,6 @@
-import { DomainEvents } from "../domain/DomainEvents";
-import { OrderRepository } from "../domain/OrderRepositoryInterface";
-import { OrderReadyEvent } from "../domain/core/OrderReadyEvent";
+import { DomainEvents } from "../../shared/DomainEvents";
+import { OrderRepository } from "../domain/ports/OrderRepositoryInterface";
+import { OrderReadyEvent } from "../domain/events/OrderReadyEvent";
 import { orderRepository } from "../infra/OrderDBRepository";
 
 type Success = { success: true };

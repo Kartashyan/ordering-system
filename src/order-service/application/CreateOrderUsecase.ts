@@ -1,7 +1,7 @@
-import { DomainEvents } from "../domain/DomainEvents";
-import { OrderRepository } from "../domain/OrderRepositoryInterface";
-import { Order } from "../domain/core/Order";
-import { OrderCreatedEvent } from "../domain/core/OrderCreatedEvent";
+import { DomainEvents } from "../../shared/DomainEvents";
+import { OrderRepository } from "../domain/ports/OrderRepositoryInterface";
+import { Order } from "../domain/entities/Order";
+import { OrderCreatedEvent } from "../domain/events/OrderCreatedEvent";
 import { OrderDto } from "../dto/orderDto";
 import { orderRepository } from "../infra/OrderDBRepository";
 
@@ -19,6 +19,7 @@ export class CreateOrderUsecase {
       return { success: false, reason: "Order should have at least one item" };
     }
     const order = Order.create(orderDto.items);
+
     const result = await this.orderRepository.save(order);
     if (!result) {
       throw new Error("Failed to create order");

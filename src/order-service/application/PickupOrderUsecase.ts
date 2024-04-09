@@ -1,5 +1,5 @@
-import { OrderRepository } from "../domain/OrderRepositoryInterface";
-import { OrderStatuses } from "../domain/core/OrderStatusManager";
+import { OrderRepository } from "../domain/ports/OrderRepositoryInterface";
+import { OrderStatuses } from "../domain/entities/OrderStatusManager";
 import { orderRepository } from "../infra/OrderDBRepository";
 type Success = { success: true };
 type Failure = { success: false; reason: string };

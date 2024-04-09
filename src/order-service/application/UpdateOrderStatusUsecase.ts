@@ -1,5 +1,5 @@
-import { OrderRepository } from "../domain/OrderRepositoryInterface";
-import { StatusStateManager } from "../domain/core/OrderStatusManager";
+import { OrderRepository } from "../domain/ports/OrderRepositoryInterface";
+import { StatusStateManager } from "../domain/entities/OrderStatusManager";
 import { orderRepository } from "../infra/OrderDBRepository";
 
 export class OrderStatusService {

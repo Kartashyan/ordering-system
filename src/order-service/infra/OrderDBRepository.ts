@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client";
-import { OrderRepository } from "../domain/OrderRepositoryInterface";
-import { Order } from "../domain/core/Order";
+import { OrderRepository } from "../domain/ports/OrderRepositoryInterface";
+import { Order } from "../domain/entities/Order";
 const prisma = new PrismaClient();
 
 export class OrderRepositoryImpl implements OrderRepository {

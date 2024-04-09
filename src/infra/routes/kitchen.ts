@@ -1,13 +1,13 @@
 import { Router } from "express";
-import { DomainEvents } from "../domain/DomainEvents";
+import { DomainEvents } from "../../shared/DomainEvents";
 import {
   NotifyKitchenEvent,
   NotifyKitchenEventPayload,
-} from "../domain/core/NotifyKitchenEvent";
-import { OrderCreatedEventPayload } from "../domain/core/OrderCreatedEvent";
-import { getNextOrderController } from "../infra/GetNextOrderController";
-import { kitchenQueue } from "../infra/KitchenQueue";
-import { orderReadyController } from "../infra/OrderReadyController";
+} from "../../order-service/domain/events/NotifyKitchenEvent";
+import { OrderCreatedEventPayload } from "../../order-service/domain/events/OrderCreatedEvent";
+import { getNextOrderController } from "../../order-service/infra/GetNextOrderController";
+import { kitchenQueue } from "../../order-service/infra/KitchenQueue";
+import { orderReadyController } from "../../order-service/infra/OrderReadyController";
 const router = Router();
 
 DomainEvents.subscribeToEvent(
