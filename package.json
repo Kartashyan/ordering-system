@@ -1,7 +1,7 @@
 {
-  "name": "pizza-ordering-system",
+  "name": "ordering-system",
   "version": "1.0.0",
-  "description": "Pizza ordering system",
+  "description": "Food ordering system",
   "main": "dist/app.js",
   "scripts": {
     "test": "vitest",
