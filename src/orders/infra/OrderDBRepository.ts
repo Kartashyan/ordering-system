@@ -1,7 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import { OrderRepository } from "../domain/ports/OrderRepositoryInterface";
 import { Order } from "../domain/entities/Order";
-const prisma = new PrismaClient();
+const _prisma = new PrismaClient();
 
 export class OrderRepositoryImpl implements OrderRepository {
   private prisma: PrismaClient;
@@ -61,4 +61,4 @@ export class OrderRepositoryImpl implements OrderRepository {
   }
 }
 
-export const orderRepository = new OrderRepositoryImpl(prisma);
+export const orderRepository = new OrderRepositoryImpl(_prisma);

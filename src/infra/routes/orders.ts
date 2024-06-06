@@ -1,8 +1,8 @@
 import { Router } from "express";
-import { createOrderController } from "../../order-service/infra/CreateOrderController";
-import { pickupOrderController } from "../../order-service/infra/PickupOrderController";
+import { createOrderController } from "../../orders/infra/CreateOrderController";
+import { pickupOrderController } from "../../orders/infra/PickupOrderController";
 import { DomainEvents } from "../../shared/DomainEvents";
-import { OrderReadyEvent } from "../../order-service/domain/events/OrderReadyEvent";
+import { OrderReadyEvent } from "../../orders/domain/events/OrderReadyEvent";
 const router = Router();
 
 DomainEvents.subscribeToEvent(
