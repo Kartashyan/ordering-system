@@ -1,10 +1,10 @@
-# Pizza Ordering System
+# Ordering System
 
-This is a pizza ordering system that allows customers to place orders for pizzas online.
+This is a ordering system that allows customers to place orders for food online.
 
 ## Getting Started
 
-To run the pizza ordering system on your local machine, follow these steps:
+To run the food ordering system on your local machine, follow these steps:
 
 1. Clone the repository:
 
