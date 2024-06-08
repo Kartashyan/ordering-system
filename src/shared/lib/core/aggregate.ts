@@ -1,14 +1,14 @@
-import { EntityProps, EventHandler, EventManager, Handler, IAggregate, ISettings, Options, UID } from "../types";
+import { EventHandler, EventManager, Handler, IAggregate, Options, UID } from "../types";
 import Context from "./context";
 import Entity from "./entity";
 import DomainEvents from "./events";
 import ID from "./id";
 
-export class Aggregate<Props extends EntityProps> extends Entity<Props> implements IAggregate<Props> {
+export class Aggregate<Props> extends Entity<Props> {
 	private _domainEvents: DomainEvents<this>;
 
-	constructor(props: Props, config?: ISettings, events?: DomainEvents<IAggregate<Props>>) {
-		super(props, config);
+	constructor(props: Props, id?: UID, events?: DomainEvents<IAggregate<Props>>) {
+		super(props, id);
 		this._domainEvents = new DomainEvents(this);
 		if (events) this._domainEvents = events as unknown as DomainEvents<this>;
 	}
@@ -23,15 +23,6 @@ export class Aggregate<Props extends EntityProps> extends Entity<Props> implemen
 	 */
 	public context(): EventManager {
 		return Context.events();
-	}
-
-	clone(props?: Partial<Props> & { copyEvents?: boolean }): this {
-		const _props = props ? { ...this.props, ...props } : { ...this.props };
-		const _events = (props && !!props.copyEvents) ? this._domainEvents : null;
-		const instance = Reflect.getPrototypeOf(this);
-		const args = [_props, this.config, _events];
-		const aggregate = Reflect.construct(instance!.constructor, args);
-		return aggregate;
 	}
 
 	dispatchEvent(eventName: string, ...args: any[]): void | Promise<void> {

@@ -4,10 +4,10 @@ import { BuiltIns, ReadonlyDeep } from "./types-util";
 export type Event = { detail: any[] };
 
 export abstract class EventManager {
-	abstract subscribe(eventName: string, fn: (event: Event) => void | Promise<void>): void;
-	abstract exists(eventName: string): boolean;
-	abstract removerEvent(eventName: string): boolean;
-	abstract dispatchEvent(eventName: string, ...args: any[]): void;
+	abstract subscribe(eventName: string, fn: (event: Event) => void | Promise<void>): void | Promise<void>;
+	abstract exists(eventName: string): boolean | Promise<boolean>;
+	abstract removerEvent(eventName: string): boolean | Promise<boolean>;
+	abstract dispatchEvent(eventName: string, ...args: any[]): void | Promise<void>;
 }
 
 export type EventType = { eventName: string, callback: (...args: any[]) => void | Promise<void> };
@@ -260,7 +260,7 @@ export type IParentName = 'ValueObject' | 'Entity';
 
 
 
-type SerializerEntityReturnType<ThisEntity extends Entity<any>> = ReturnType<ThisEntity['getRaw']>
+type SerializerEntityReturnType<ThisEntity extends Entity<any>> = ReturnType<any>
 type SerializerValueObjectReturnType<ThisValueObject extends ValueObject<any>> = ReturnType<ThisValueObject['getRaw']>
 
 export type AutoMapperSerializer<Props> = {
