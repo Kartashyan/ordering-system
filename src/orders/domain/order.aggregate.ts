@@ -1,11 +1,11 @@
-import { Aggregate, ID, UID } from "../../shared/lib";
+import { Aggregate, ID, Result, UID } from "../../shared/lib";
 import { OrderStatus, OrderStatuses, StatusStateManager } from "./entities/OrderStatusManager";
+import { OrderItem, OrderItemProps } from "./order-item.value-object";
 
-type OrderItemProps = { id: number; quantity: number, name: string, price: number};
 interface OrderProps {
     id: UID;
     status: string;
-    items: OrderItemProps[];
+    items: OrderItem[];
 }
 
 export class Order extends Aggregate<OrderProps> {
@@ -22,13 +22,13 @@ export class Order extends Aggregate<OrderProps> {
     }
 
     public static create(
-        items: OrderItemProps[],
+        items: OrderItem[],
         id?: UID,
         status?: string
     ): Order {
         const order = new Order({ id: id || ID.create(), status: status || OrderStatuses.Pending, items });
-        if (order.items.length === 0) {
-            throw new Error("Order should have at least one item");
+        if (order.items.length <= 0) {
+            Result.fail("Order should have at least one item");
         }
         return order;
     }
