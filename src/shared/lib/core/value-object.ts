@@ -1,6 +1,3 @@
-import { IResult } from "../types";
-import Result from "./result";
-
 export class ValueObject<Props>{
 	protected props: Props;
 	constructor(props: Props) {
@@ -11,6 +8,13 @@ export class ValueObject<Props>{
 		const props = this.props;
 		const otherProps = other?.props;
 
+		if (other === null || other === undefined) {
+			return false;
+		  }
+		  if (other.props === undefined) {
+			return false;
+		  }
+
 		const stringifyAndOmit = (obj: any): string => {
 			if (!obj) return '';
 			const { createdAt, updatedAt, ...cleanedProps } = obj;
@@ -19,23 +23,6 @@ export class ValueObject<Props>{
 
 		return stringifyAndOmit(props) === stringifyAndOmit(otherProps);
 	}
-
-	public static isValidProps(props: any): boolean {
-		// Validate props
-		return true;
-	};
-
-	public static create(props: any): IResult<any, any, any>;
-	/**
-	 * 
-	 * @param props params as Props
-	 * @returns instance of result with a new Value Object on state if success.
-	 * @summary result state will be `null` case failure.
-	 */
-	public static create(props: {}): Result<any, any, any> {
-		if (!this.isValidProps(props)) return Result.fail('Invalid props to create an instance of ' + this.name);
-		return Result.Ok(new this(props));
-	};
 }
 
 export default ValueObject;

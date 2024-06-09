@@ -1,6 +1,6 @@
 import { EventEmitter } from "events";
 import { Event, EventManager, EventType } from "../types";
-import validateContextEventName from "../utils/validate-context-event-name.util";
+
 export default class ServerEventManager implements EventManager {
     private events: EventType[];
     private static _instance: ServerEventManager;
@@ -27,7 +27,6 @@ export default class ServerEventManager implements EventManager {
     }
 
     subscribe(eventName: string, fn: (event: Event) => void | Promise<void>): void {
-        validateContextEventName(eventName);
         if (this.exists(eventName)) return;
         this.events.push({ eventName, callback: fn });
         this.emitter.addListener(eventName, fn);
@@ -49,7 +48,6 @@ export default class ServerEventManager implements EventManager {
     }
 
     dispatchEvent(eventName: string, ...args: any[]): void {
-        validateContextEventName(eventName);
         if (eventName.includes('*')) {
             const regex = new RegExp(eventName.replace('*', '.*'));
             let i = 0;
