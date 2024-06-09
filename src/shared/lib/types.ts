@@ -1,4 +1,3 @@
-import { Entity, ValueObject } from "./core";
 import { BuiltIns, ReadonlyDeep } from "./types-util";
 
 export type Event = { detail: any[] };
@@ -202,7 +201,7 @@ export interface IAdapter<F, T, E = any, M = any> {
 export interface IEntity<Props> {
 	toObject<T>(adapter?: IAdapter<IEntity<Props>, any>): T extends {}
 		? T & EntityMapperPayload
-		: ReadonlyDeep<AutoMapperSerializer<Props>> & EntityMapperPayload;
+		: ReadonlyDeep<Props>;
 
 	get id(): UID<string>;
 	hashCode(): UID<string>;
@@ -212,7 +211,7 @@ export interface IEntity<Props> {
 
 export interface IValueObject<Props> {
 	clone(): IValueObject<Props>;
-	toObject<T>(adapter?: IAdapter<this, T>): T extends {} ? T : ReadonlyDeep<AutoMapperSerializer<Props>>;
+	toObject<T>(adapter?: IAdapter<this, T>): T extends {} ? T : ReadonlyDeep<Props>;
 }
 
 export interface IEntityGettersAndSetters<Props> {
@@ -247,7 +246,7 @@ export interface IBaseGettersAndSetters<Props> {
 export interface IAggregate<Props> {
 	toObject<T>(adapter?: IAdapter<this, T>): T extends {}
 		? T & EntityMapperPayload
-		: ReadonlyDeep<AutoMapperSerializer<Props> & EntityMapperPayload>;
+		: ReadonlyDeep<Props>;
 	get id(): UID<string>;
 	hashCode(): UID<string>;
 	isNew(): boolean;
@@ -258,32 +257,6 @@ export interface IAggregate<Props> {
 
 export type IParentName = 'ValueObject' | 'Entity';
 
-
-
-type SerializerEntityReturnType<ThisEntity extends Entity<any>> = ReturnType<any>
-type SerializerValueObjectReturnType<ThisValueObject extends ValueObject<any>> = ReturnType<ThisValueObject['getRaw']>
-
-export type AutoMapperSerializer<Props> = {
-	[key in keyof Props]:
-	Props[key] extends ValueObject<any>
-	? AutoMapperSerializer<SerializerValueObjectReturnType<Props[key]>>
-	: Props[key] extends Entity<any>
-	? AutoMapperSerializer<SerializerEntityReturnType<Props[key]>> & EntityMapperPayload
-	: Props[key] extends Array<any>
-	? Array<
-		AutoMapperSerializer<ReturnType<Props[key][0]['getRaw']>>
-		& (
-			Props[key][0] extends Entity<any>
-			? EntityMapperPayload
-			: {}
-		)
-	>
-	: Props[key]
-}
-export interface IAutoMapper<Props> {
-	valueObjectToObj(valueObject: IValueObject<Props>): AutoMapperSerializer<Props>
-	entityToObj(entity: IEntity<Props>): AutoMapperSerializer<Props> & EntityMapperPayload
-}
 
 export interface IManyData {
 	class: any;
