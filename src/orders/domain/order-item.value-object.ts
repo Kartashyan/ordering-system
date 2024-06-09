@@ -1,7 +1,7 @@
 import { Result, ValueObject } from "../../shared/lib";
 import { Price } from "./price.value-object";
 
-interface OrderItemProps {
+export interface OrderItemProps {
     productId: string;
     quantity: number;
     price: Price;
@@ -16,6 +16,14 @@ export class OrderItem extends ValueObject<OrderItemProps> {
         this.productId = props.productId;
         this.quantity = props.quantity;
         this.price = props.price;
+    }
+
+    public get total(): number {
+        return this.quantity * this.price.value;
+    }
+
+    public getProductId(): string {
+        return this.props.productId;
     }
 
     public static create(productId: string, quantity: number, price: Price): Result<OrderItem> {
