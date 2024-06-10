@@ -55,5 +55,9 @@ export class Aggregate<Props> extends Entity<Props> {
 	deleteEvent(eventName: string): void {
 		this._domainEvents.removeEvent(eventName);;
 	}
+
+	toObject(): Props {
+		return this.props;
+	}
 }
 export default Aggregate;
