@@ -1,6 +1,8 @@
+import { i } from "vitest/dist/reporters-P7C2ytIv";
 import { Aggregate, ID, Result, UID } from "../../shared/lib";
 import { OrderStatus, OrderStatuses, StatusStateManager } from "./entities/OrderStatusManager";
 import { OrderItem, OrderItemProps } from "./order-item.value-object";
+import OrderCreatedEvent from "./order-created.event";
 
 interface OrderProps {
     id: UID;
@@ -25,12 +27,16 @@ export class Order extends Aggregate<OrderProps> {
         items: OrderItem[],
         id?: UID,
         status?: string
-    ): Order {
+    ): Result<Order> {
         const order = new Order({ id: id || ID.create(), status: status || OrderStatuses.Pending, items });
         if (order.items.length <= 0) {
             Result.fail("Order should have at least one item");
         }
-        return order;
+        const isNewOrder = !id;
+        if (isNewOrder) {
+            order.addEvent(new OrderCreatedEvent());
+        }
+        return Result.Ok(order);
     }
 
     public changeStatusTo(status: string): void {
