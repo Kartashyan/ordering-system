@@ -7,7 +7,7 @@
     "test": "vitest",
     "start": "node dist/app.js",
     "build": "tsc",
-    "dev": "ts-node-dev --respawn --transpile-only src/app.ts",
+    "dev": "ts-node-dev --respawn --transpile-only src/infra/app.ts",
     "setup": "prisma generate && prisma migrate deploy && prisma db seed",
     "docker": "docker compose up -d"
   },
