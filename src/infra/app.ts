@@ -19,8 +19,8 @@ app.use("/api/kitchen", kitchenRouter);
 app.listen(PORT, async () => {
   console.log(`Server running on port ${PORT}`);
   // add panding orders to the kitchen queue ordered by creation date
-  // const orders = await prisma.order.findMany({ where: { status: "Pending" } });
-  // orders.forEach((order) => {
-  //   kitchenQueue.enqueue(order.id);
-  // });
+  const orders = await prisma.order.findMany({ where: { status: "Pending" } });
+  orders.forEach((order) => {
+    kitchenQueue.enqueue(order.id);
+  });
 });

@@ -9,7 +9,8 @@
     "build": "tsc",
     "dev": "ts-node-dev --respawn --transpile-only src/infra/app.ts",
     "setup": "prisma generate && prisma migrate deploy && prisma db seed",
-    "docker": "docker compose up -d"
+    "docker": "docker compose up -d",
+    "seed": "ts-node --transpile-only src/infra/database/prisma/seed.ts"
   },
   "keywords": [],
   "author": "",
