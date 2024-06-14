@@ -42,14 +42,14 @@ export class Aggregate<Props> extends Entity<Props> {
 	addEvent(eventName: string, handler: Handler<this>, options?: Options): void;
 
 	addEvent(eventNameOrEvent: string | EventHandler<this>, handler?: Handler<this>, options?: Options): void {
-		if (typeof eventNameOrEvent === 'string' && handler) {
-			this._domainEvents.addEvent(eventNameOrEvent, handler! ?? null, options);
-			return;
-		}
-		const _options = (eventNameOrEvent as EventHandler<this>)?.params?.options;
-		const eventName = (eventNameOrEvent as EventHandler<this>)?.params?.eventName;
-		const eventHandler = (eventNameOrEvent as EventHandler<this>)?.dispatch;
-		this._domainEvents.addEvent(eventName, eventHandler! ?? null, _options);
+		// if (typeof eventNameOrEvent === 'string' && handler) {
+		// 	this._domainEvents.addEvent(eventNameOrEvent, handler! ?? null, options);
+		// 	return;
+		// }
+		// const _options = (eventNameOrEvent as EventHandler<this>)?.params?.options;
+		// const eventName = (eventNameOrEvent as EventHandler<this>)?.params?.eventName;
+		// const eventHandler = (eventNameOrEvent as EventHandler<this>)?.dispatch;
+		// this._domainEvents.addEvent(eventName, eventHandler! ?? null, _options);
 	}
 
 	deleteEvent(eventName: string): void {
