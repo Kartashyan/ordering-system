@@ -1,6 +1,10 @@
-import { PrismaClient } from "@prisma/client";
-import { OrderRepository } from "../domain/ports/OrderRepositoryInterface";
-import { Order } from "../domain/entities/Order";
+import { Order as OrderSchema, PrismaClient } from "@prisma/client";
+import { OrderModel, OrderRepository } from "../domain/ports/OrderRepositoryInterface";
+import { Order } from "../domain/order.aggregate";
+import { OrderMapper } from "./OrderMapper";
+import { DomainEvents } from "../../shared/DomainEvents";
+import { OrderCreatedEvent } from "../domain/events/OrderCreatedEvent";
+
 const _prisma = new PrismaClient();
 
 export class OrderRepositoryImpl implements OrderRepository {
@@ -9,32 +13,41 @@ export class OrderRepositoryImpl implements OrderRepository {
     this.prisma = db;
   }
 
-  async save(order: Order) {
-    const data = {
-      id: order.id,
-      status: order.status,
-      orderItems: {
-        create: order.items.map((item) => ({
-          quantity: item.quantity,
-          product: {
-            connect: {
-              id: item.id,
-            },
-          },
-        })),
-      },
-    };
-    const result = await this.prisma.order.upsert({
+  async exists(id: string) {
+    const result = await this.prisma.order.findUnique({
       where: {
-        id: order.id,
+        id,
       },
-      create: data,
-      update: data,
     });
-    return result;
+
+    return !!result;
   }
 
-  async find(id: string) {
+  async save(order: Order) {
+    let orderToPersist = OrderMapper.toPersistence(order);
+
+    const createOrder = this.prisma.order.create({
+      data: {
+        id: orderToPersist.id,
+        status: orderToPersist.status,
+      },
+    });
+
+    const createOrderItems = orderToPersist.items.map((item) => {
+      return this.prisma.orderItem.create({
+        data: {
+          orderId: orderToPersist.id,
+          productId: Number(item.productId),
+          quantity: item.quantity,
+        },
+      });
+    });
+
+    await this.prisma.$transaction([createOrder, ...createOrderItems]);
+    DomainEvents.publishEvent(new OrderCreatedEvent(order.getId()));
+  }
+
+  async find(id: string): Promise<OrderModel> {
     const result = await this.prisma.order.findUnique({
       where: {
         id,
@@ -53,11 +66,19 @@ export class OrderRepositoryImpl implements OrderRepository {
     }
 
     const items = result.orderItems.map((item) => ({
-      id: item.product.id,
+      product: {
+        id: String(item.product.id),
+        name: item.product.name,
+        price: item.product.price,
+      },
       quantity: item.quantity,
     }));
 
-    return Order.create(items, result.id, result.status);
+    return {
+      id: result.id,
+      status: result.status,
+      items,
+    };
   }
 }
 
