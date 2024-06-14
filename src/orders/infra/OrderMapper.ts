@@ -1,22 +1,21 @@
 import { ID } from "../../shared/lib";
 import { OrderItem } from "../domain/order-item.value-object";
 import { Order } from "../domain/order.aggregate";
+import { OrderModel } from "../domain/ports/OrderRepositoryInterface";
 
-interface OrderItemModel {
-    productId: string;
-    quantity: number;
-}
-
-interface OrderModel {
+interface OrderPersistanceModel {
     id: string;
-    items: OrderItemModel[];
     status: string;
+    items: {
+        productId: string;
+        quantity: number;
+    }[];
 }
 
 export class OrderMapper {
     static toDomain(order: OrderModel): Order {
         const orderItems = order.items.map((item) => {
-            return OrderItem.create(item.productId, item.quantity).value();
+            return OrderItem.create(String(item.product.id), item.quantity).value();
         });
         return Order.create(
             orderItems,
@@ -24,10 +23,10 @@ export class OrderMapper {
             order.status,
         ).value();
     }
-    static toPersistence(order: Order): OrderModel {
+    static toPersistence(order: Order): OrderPersistanceModel {
         return {
-            id: order.id,
-            customerId: order.customerId,
+            id: order.getId(),
+            status: order.status,
             items: order.items.map((item) => {
                 return {
                     productId: item.productId,
