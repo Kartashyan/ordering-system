@@ -68,14 +68,6 @@ export interface ISettings extends IVoSettings {
 	disableSetters?: boolean;
 }
 
-export interface IResultHook<Y> {
-	on(option: IResultOptions): Y | undefined;
-}
-
-export interface IResultExecute<X, Y> extends IResultHook<Y> {
-	withData(data: X): IResultHook<Y>;
-}
-
 export type OBJ = {};
 
 export type EntityProps = OBJ | { id?: string, createdAt?: Date, updatedAt?: Date };

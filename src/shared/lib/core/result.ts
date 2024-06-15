@@ -1,4 +1,4 @@
-import { ICommand, IIterator, IResultExecute, IResultHook, IResultOptions } from "../types";
+import { ICommand, IIterator } from "../types";
 import Iterator from "./iterator";
 
 /**
@@ -149,4 +149,15 @@ export class Result<T = void, D = string, M = {}> implements IResult<T, D, M> {
 
 export default Result;
 export const Combine = Result.combine;
+/**
+ *
+ */
+
+export type IResultOptions = 'fail' | 'Ok';
+export interface IResultHook<Y> {
+	on(option: IResultOptions): Y | undefined;
+}
+export interface IResultExecute<X, Y> extends IResultHook<Y> {
+	withData(data: X): IResultHook<Y>;
+}
 
