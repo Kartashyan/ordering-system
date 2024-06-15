@@ -1,4 +1,4 @@
-import { EventHandler } from "../../shared/lib";
+import { EventHandler } from "../../shared/lib/core/event-handler";
 import { Order } from "./order.aggregate";
 
 export class OrderCreatedEvent extends EventHandler<Order>{
