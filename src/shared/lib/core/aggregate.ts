@@ -24,8 +24,8 @@ export class Aggregate<Props> extends Entity<Props> {
 		return Context.events();
 	}
 
-	dispatchEvent(eventName: string): void | Promise<void> {
-		this._domainEvents.dispatchEvent(eventName);
+	dispatchEvent<E>(eventName: string, eventBody: E): void | Promise<void> {
+		this._domainEvents.dispatchEvent(eventName, eventBody);
 	}
 
 	async dispatchAll(): Promise<void> {

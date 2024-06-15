@@ -9,11 +9,11 @@ export class DomainEvents<T> {
   }
 
 
-  dispatchEvent(eventName: string): void | Promise<void> {
+  dispatchEvent<E>(eventName: string, eventBody?: E): void | Promise<void> {
     const _event = this._events.find(
       (evt): boolean => evt.eventName === eventName,
     );
-
+    console.log(`EVENT DISPATCH: ${eventName}, ${eventBody}`);
     if (!_event) return;
     this.removeEvent(eventName);
   }
