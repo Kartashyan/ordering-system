@@ -191,17 +191,6 @@ export interface IBaseGettersAndSetters<Props> {
 	getRaw(): Props;
 }
 
-export interface IAggregate<Props> {
-	toObject<T>(adapter?: IAdapter<this, T>): T extends {}
-		? T & EntityMapperPayload
-		: ReadonlyDeep<Props>;
-	get id(): UID<string>;
-	hashCode(): UID<string>;
-	isNew(): boolean;
-	clone(): IEntity<Props>;
-	deleteEvent(eventName: string): void;
-	context(): EventManager;
-}
 
 export type IParentName = 'ValueObject' | 'Entity';
 
