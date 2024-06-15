@@ -70,18 +70,6 @@ export interface UID<T = string> {
 	clone(): UID<T>;
 }
 
-/**
- * 
- */
-export interface ITeratorConfig<T> {
-	initialData?: Array<T>;
-	returnCurrentOnReversion?: boolean;
-	restartOnFinish?: boolean;
-}
-
-/**
- * 
- */
 export interface IIterator<T> {
 	hasNext(): boolean;
 	hasPrev(): boolean;
@@ -294,8 +282,7 @@ export interface EventMetrics {
  */
 export interface DEvent<T> {
 	eventName: string;
-	handler: Handler<T>;
-	options: Options;
+	aggregate: T;
 }
 
 export type HandlerArgs<T> = [T, [DEvent<T>, ...any[]]]
@@ -320,24 +307,6 @@ export type Handler<T> = PromiseHandler<T> | NormalHandler<T>;
  */
 export interface Options {
 	priority: number;
-}
-
-/**
- * Interface representing metrics related to events.
- * @interface Metrics
- */
-export interface Metrics {
-	/**
-	 * A function that returns the total number of events.
-	 * @returns {number} The total number of events.
-	 */
-	totalEvents: () => number;
-
-	/**
-	 * A function that returns the total number of dispatched events.
-	 * @returns {number} The total number of dispatched events.
-	 */
-	totalDispatched: () => number;
 }
 
 /**
