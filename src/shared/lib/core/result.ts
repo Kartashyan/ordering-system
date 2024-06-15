@@ -1,5 +1,4 @@
-import { ICommand, IIterator } from "../types";
-import Iterator from "./iterator";
+import { ICommand } from "../types";
 
 /**
  * @summary The result is used to returns a operation result instead the own value.
@@ -76,18 +75,8 @@ export class Result<T = void, D = string, M = {}> implements IResult<T, D, M> {
 		return Object.freeze(fail) as IResult<T, D, M>;
 	}
 
-	public static iterate<A, B, M>(results?: Array<IResult<A, B, M>>): IIterator<IResult<A, B, M>> {
-		return Iterator.create<IResult<A, B, M>>({ initialData: results, returnCurrentOnReversion: true });
-	}
-
-	public static combine<A = any, B = any, M = any>(results: Array<IResult<any, any, any>>): IResult<A, B, M> {
-		const iterator = Result.iterate(results);
-		if (iterator.isEmpty()) return Result.fail('No results provided on combine param' as B) as IResult<A, B, M>;
-		while (iterator.hasNext()) {
-			const currentResult = iterator.next();
-			if (currentResult.isFail()) return currentResult as IResult<A, B, M>;
-		}
-		return iterator.first() as IResult<A, B, M>;
+	public static combine<A = any, B = any, M = any>(results: Array<IResult<any, any, any>>) {
+		//TODO: Implement combine method
 	}
 
 	execute<X, Y>(command: ICommand<X | void, Y>): IResultExecute<X, Y> {

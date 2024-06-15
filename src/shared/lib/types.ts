@@ -14,27 +14,7 @@ export interface UID<T = string> {
 	clone(): UID<T>;
 }
 
-export interface IIterator<T> {
-	hasNext(): boolean;
-	hasPrev(): boolean;
-	next(): T;
-	prev(): T;
-	first(): T;
-	last(): T;
-	isEmpty(): boolean;
-	toFirst(): IIterator<T>;
-	toLast(): IIterator<T>;
-	toArray(): Array<T>;
-	clear(): IIterator<T>;
-	addToEnd(data: T): IIterator<T>;
-	add(data: T): IIterator<T>;
-	addToStart(data: T): IIterator<T>;
-	removeLast(): IIterator<T>;
-	removeFirst(): IIterator<T>;
-	total(): number;
-	clone(): IIterator<T>;
-	removeItem(item: T): void;
-}
+
 
 /**
  * 
@@ -169,11 +149,6 @@ export interface IManyData {
 }
 
 export type ICreateManyDomain = Array<IManyData>;
-
-export interface ICreateManyResult {
-	data: IIterator<IResult<any, any, any>>;
-	result: IResult<any, any, any>;
-}
 
 export type IClass = {};
 
