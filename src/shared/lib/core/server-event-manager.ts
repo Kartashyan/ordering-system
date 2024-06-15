@@ -1,5 +1,4 @@
 import { EventEmitter } from "events";
-import { EventType } from "../types";
 import { Event, EventManager } from "./event-manager";
 
 export default class ServerEventManager implements EventManager {
@@ -65,3 +64,6 @@ export default class ServerEventManager implements EventManager {
         this.emitter.emit(eventName, { detail: args || [] });
     }
 }
+
+export type EventType = { eventName: string; callback: (...args: any[]) => void | Promise<void>; };
+

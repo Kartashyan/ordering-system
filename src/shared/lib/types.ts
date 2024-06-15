@@ -1,8 +1,5 @@
-import { EventManager } from "./core/event-manager";
 import { IResult } from "./core/result";
 import { BuiltIns, ReadonlyDeep } from "./types-util";
-
-export type EventType = { eventName: string, callback: (...args: any[]) => void | Promise<void> };
 
 export interface UID<T = string> {
 	toShort(): UID<string>;
