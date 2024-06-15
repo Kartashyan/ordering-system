@@ -1,19 +1,14 @@
-import { EventHandler } from "../../shared/lib/core/event-handler";
 import { Order } from "./order.aggregate";
 
-export class OrderCreatedEvent extends EventHandler<Order>{
-
-	constructor() { 
-		super({ eventName: 'OrderCreated' });
+export class OrderCreatedEvent{
+	eventName: string;
+	constructor(public readonly order: Order) { 
+		this.eventName = 'OrderCreated';
+		this.order = order;
 	}
 	
-	dispatch(aggregate: Order): void {
-		const model = aggregate.toObject();
-        const orderItems = model.items;
-        const orderId = model.id;
-		console.log(`EVENT DISPATCH: ORDER CREATED`);
-		console.log(model);
-		aggregate.context().dispatchEvent('Kitchen:StartPreparing', { orderId, orderItems });
+	getAggregateId(): string {
+		return this.order.getId();
 	}
 }
 
