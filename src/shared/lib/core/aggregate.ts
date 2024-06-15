@@ -1,4 +1,5 @@
-import { EventManager, UID } from "../types";
+import { UID } from "../types";
+import { EventManager } from "./event-manager";
 import Context from "./context";
 import Entity from "./entity";
 import DomainEvents from "./events";

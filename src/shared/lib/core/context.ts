@@ -1,4 +1,4 @@
-import { EventManager } from "../types";
+import { EventManager } from "./event-manager";
 import ServerEventManager from "./server-event-manager";
 
 export const platform = {

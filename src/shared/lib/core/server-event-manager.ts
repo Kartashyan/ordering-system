@@ -1,5 +1,6 @@
 import { EventEmitter } from "events";
-import { Event, EventManager, EventType } from "../types";
+import { EventType } from "../types";
+import { Event, EventManager } from "./event-manager";
 
 export default class ServerEventManager implements EventManager {
     private events: EventType[];
