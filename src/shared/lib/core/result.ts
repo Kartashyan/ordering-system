@@ -1,4 +1,4 @@
-import { ICommand, IIterator, IResultExecute, IResultHook, IResultObject, IResultOptions } from "../types";
+import { ICommand, IIterator, IResultExecute, IResultHook, IResultOptions } from "../types";
 import Iterator from "./iterator";
 
 /**
@@ -16,6 +16,14 @@ import Iterator from "./iterator";
  * @method `toObject()` get an object with result state
  * @method `execute()` execute a hook as command on fail or on success
  */
+
+export interface IResultObject<T, D, M> {
+	isOk: boolean;
+	isFail: boolean;
+	data: T | null;
+	error: D | null;
+	metaData: M;
+}
 
 export interface IResult<T, D = string, M = {}> {
 	value(): T;
@@ -141,3 +149,4 @@ export class Result<T = void, D = string, M = {}> implements IResult<T, D, M> {
 
 export default Result;
 export const Combine = Result.combine;
+

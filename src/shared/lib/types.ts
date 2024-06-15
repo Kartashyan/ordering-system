@@ -92,14 +92,6 @@ export interface ISettings extends IVoSettings {
 	disableSetters?: boolean;
 }
 
-export interface IResultObject<T, D, M> {
-	isOk: boolean;
-	isFail: boolean;
-	data: T | null;
-	error: D | null;
-	metaData: M;
-}
-
 export interface IResultHook<Y> {
 	on(option: IResultOptions): Y | undefined;
 }
