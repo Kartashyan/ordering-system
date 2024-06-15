@@ -1,4 +1,4 @@
-import { IResult } from "../types";
+import { IResult } from "./result";
 import Result from "./result";
 
 /**
