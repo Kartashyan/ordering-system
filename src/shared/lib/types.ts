@@ -57,17 +57,6 @@ export interface IAdapter<F, T, E = any, M = any> {
 	build(target: F): IResult<T, E, M>;
 }
 
-export interface IEntity<Props> {
-	toObject<T>(adapter?: IAdapter<IEntity<Props>, any>): T extends {}
-		? T & EntityMapperPayload
-		: ReadonlyDeep<Props>;
-
-	get id(): UID<string>;
-	hashCode(): UID<string>;
-	isNew(): boolean;
-	clone(): IEntity<Props>;
-}
-
 export interface IValueObject<Props> {
 	clone(): IValueObject<Props>;
 	toObject<T>(adapter?: IAdapter<this, T>): T extends {} ? T : ReadonlyDeep<Props>;
