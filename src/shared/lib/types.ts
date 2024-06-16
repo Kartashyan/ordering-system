@@ -58,13 +58,6 @@ export interface EntityMapperPayload {
 	updatedAt: Date
 };
 
-export interface IHistoryProps<Props> {
-	props: Props;
-	action: 'create' | 'update';
-	token?: UID<string>;
-	ocurredAt?: Date;
-}
-
 export type IPropsValidation<T> = { [P in keyof Required<T>]: (value: T[P]) => boolean };
 
 export interface IAdapter<F, T, E = any, M = any> {
