@@ -33,13 +33,6 @@ export interface ICommand<A, B> {
  */
 export type IUseCase<T, D> = ICommand<T, Promise<D>>;
 
-export interface IProxy<T, D> {
-	canExecute: <A extends T>(data: A) => Promise<boolean> | boolean;
-	beforeExecute?: <A extends T, B extends T>(data: A) => Promise<B>;
-	execute: ICommand<T, D>;
-	afterExecute?: <A extends D, B extends D>(data: A) => Promise<B>;
-}
-
 export interface IVoSettings {
 	disableGetters?: boolean;
 }
