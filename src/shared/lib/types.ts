@@ -62,27 +62,6 @@ export interface IValueObject<Props> {
 	toObject<T>(adapter?: IAdapter<this, T>): T extends {} ? T : ReadonlyDeep<Props>;
 }
 
-export interface IBaseGettersAndSetters<Props> {
-	get<Key extends keyof Props>(
-		key: Props extends BuiltIns ?
-			'value' :
-			Props extends Symbol ?
-			'value' :
-			Props extends any[] ?
-			'value' :
-			Key
-	): Props extends BuiltIns ?
-		Props :
-		Props extends Symbol ?
-		string :
-		Props extends any[] ?
-		Readonly<Props> :
-		Props extends {} ?
-		Readonly<Props[Key]> : Props
-	getRaw(): Props;
-}
-
-
 export type IParentName = 'ValueObject' | 'Entity';
 
 
