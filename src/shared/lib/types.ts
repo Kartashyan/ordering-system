@@ -73,14 +73,6 @@ export interface IHistory<Props> {
 	list(): Array<IHistoryProps<Props>>;
 }
 
-export interface IPublicHistory<Props> {
-	snapshot(token?: UID<string>): IHistoryProps<Props>;
-	back(token?: UID<string>): IHistoryProps<Props>;
-	forward(token?: UID<string>): IHistoryProps<Props>;
-	count(): number;
-	list(): Array<IHistoryProps<Props>>;
-}
-
 export type IPropsValidation<T> = { [P in keyof Required<T>]: (value: T[P]) => boolean };
 
 export interface IAdapter<F, T, E = any, M = any> {
