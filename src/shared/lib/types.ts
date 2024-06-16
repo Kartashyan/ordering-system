@@ -65,14 +65,6 @@ export interface IHistoryProps<Props> {
 	ocurredAt?: Date;
 }
 
-export interface IHistory<Props> {
-	snapshot(props: IHistoryProps<Props>): IHistoryProps<Props>;
-	back(token?: UID<string>): IHistoryProps<Props>;
-	forward(token?: UID<string>): IHistoryProps<Props>;
-	count(): number;
-	list(): Array<IHistoryProps<Props>>;
-}
-
 export type IPropsValidation<T> = { [P in keyof Required<T>]: (value: T[P]) => boolean };
 
 export interface IAdapter<F, T, E = any, M = any> {
