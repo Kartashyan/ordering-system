@@ -73,13 +73,6 @@ export interface IHistory<Props> {
 	list(): Array<IHistoryProps<Props>>;
 }
 
-export interface IEntityHistory<Props> {
-	back(token?: UID<string>): IHistoryProps<Props> | null;
-	forward(token?: UID<string>): IHistoryProps<Props> | null;
-	count(): number;
-	list(): Array<IHistoryProps<Props>>;
-}
-
 export interface IPublicHistory<Props> {
 	snapshot(token?: UID<string>): IHistoryProps<Props>;
 	back(token?: UID<string>): IHistoryProps<Props>;
