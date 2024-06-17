@@ -12,12 +12,11 @@ export class GetNextOrderController {
   async execute(req: express.Request, res: express.Response) {
     try {
       const result = await this.useCase.execute();
-      if (!result.success) {
-        res.status(400).send(result.reason);
-        return;
+      if (result.isFail()) {
+        return res.status(404).send(result.error());
       }
       res.type("application/json");
-      return res.send(JSON.stringify(result.data));
+      res.status(200).send(result.value());
     } catch (error: unknown) {
       res
         .status(500)
