@@ -1,7 +1,8 @@
 import { DEvent } from "../types";
+import { DomainEvent } from "./domain-event";
 
 export class DomainEvents<T> {
-  private _events: DEvent<T>[];
+  private _events: DomainEvent[];
 
   constructor(private readonly aggregate: T) {
     this._events = [];
@@ -18,10 +19,10 @@ export class DomainEvents<T> {
     this.removeEvent(eventName);
   }
 
-  addEvent(eventName: string): void {
-    this.validateEventName(eventName);
-    this.removeEvent(eventName);
-    this._events.push({ eventName, aggregate: this.aggregate});
+  addEvent(event: DomainEvent): void {
+    this.validateEventName(event.eventName);
+    this.removeEvent(event.eventName);
+    this._events.push(event);
   }
 
   private validateEventName(eventName: string): void {
