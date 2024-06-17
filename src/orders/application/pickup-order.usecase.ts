@@ -1,8 +1,7 @@
-import { OrderRepository } from "../domain/ports/order.repo-port";
-import { OrderStatuses } from "../domain/entities/OrderStatusManager";
-import { orderRepository } from "../infra/order-prisma.repo-adapter";
 import { Result } from "../../shared/lib";
-import { OrderMapper } from "../infra/order.mapper";
+import { OrderStatuses } from "../domain/entities/OrderStatusManager";
+import { OrderRepository } from "../domain/ports/order.repo-port";
+import { orderRepository } from "../infra/order-prisma.repo-adapter";
 
 export class PickupOrderStatusUsecase {
   private orderRepository: OrderRepository;
