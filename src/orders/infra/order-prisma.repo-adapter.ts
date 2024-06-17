@@ -1,9 +1,9 @@
-import { Order as OrderSchema, PrismaClient } from "@prisma/client";
-import { OrderModel, OrderRepository } from "../domain/ports/order.repo-port";
-import { Order } from "../domain/order.aggregate";
-import { OrderMapper } from "./order.mapper";
+import { PrismaClient } from "@prisma/client";
 import { DomainEvents } from "../../shared/DomainEvents";
 import { OrderCreatedEvent } from "../domain/order-created.event";
+import { Order } from "../domain/order.aggregate";
+import { OrderRepository } from "../domain/ports/order.repo-port";
+import { OrderMapper } from "./order.mapper";
 
 const _prisma = new PrismaClient();
 
