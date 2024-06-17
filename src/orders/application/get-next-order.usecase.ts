@@ -1,4 +1,4 @@
-import { OrderRepository } from "../domain/ports/OrderRepositoryInterface";
+import { OrderRepository } from "../domain/ports/order.repo-port";
 import { kitchenQueue } from "../infra/kitchen.queue";
 import { orderRepository } from "../infra/order-prisma.repo-adapter";
 import {
@@ -29,7 +29,7 @@ export class GetNextOrderUsecase {
     if (!order) {
       return Result.fail("Order not found");
     }
-    return Result.Ok(OrderMapper.toDomain(order));
+    return Result.Ok(order);
   }
 }
 
