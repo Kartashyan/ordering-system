@@ -1,6 +1,6 @@
 import Aggregate from "./aggregate";
 
-export type DomainEvent<T = Aggregate<any>> = {
+export type DomainEvent = {
 	eventName: string;
-	aggregate: T;
+	occurredOn: Date;
 }
