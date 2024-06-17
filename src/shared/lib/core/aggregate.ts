@@ -4,6 +4,7 @@ import Context from "./context";
 import Entity from "./entity";
 import DomainEvents from "./events";
 import ID from "./id";
+import { DomainEvent } from "./domain-event";
 
 export class Aggregate<Props> extends Entity<Props> {
 	private _domainEvents: DomainEvents<this>;
@@ -37,8 +38,8 @@ export class Aggregate<Props> extends Entity<Props> {
 		this._domainEvents.clearEvents();
 	};
 
-	addEvent(): void {
-
+	addEvent(event: DomainEvent): void {
+		this._domainEvents.addEvent(event);
 	}
 
 	deleteEvent(eventName: string): void {
