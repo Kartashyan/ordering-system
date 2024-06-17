@@ -1,7 +1,7 @@
 import { DomainEvents } from "../../shared/DomainEvents";
 import { OrderRepository } from "../domain/ports/OrderRepositoryInterface";
-import { OrderReadyEvent } from "../domain/events/OrderReadyEvent";
-import { orderRepository } from "../infra/OrderDBRepository";
+import { OrderReadyEvent } from "../domain/events/order-ready.event";
+import { orderRepository } from "../infra/order-prisma.repo-adapter";
 
 type Success = { success: true };
 type Failure = { success: false; reason: string };

@@ -2,7 +2,7 @@ import express from "express";
 import {
   OrderReadyUsecase,
   orderReadyUsecase,
-} from "../application/OrderReadyUsecase";
+} from "../application/order-ready.usecase";
 
 export class OrderReadyController {
   private useCase: OrderReadyUsecase;

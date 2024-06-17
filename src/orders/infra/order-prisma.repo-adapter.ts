@@ -1,7 +1,7 @@
 import { Order as OrderSchema, PrismaClient } from "@prisma/client";
 import { OrderModel, OrderRepository } from "../domain/ports/OrderRepositoryInterface";
 import { Order } from "../domain/order.aggregate";
-import { OrderMapper } from "./OrderMapper";
+import { OrderMapper } from "./order.mapper";
 import { DomainEvents } from "../../shared/DomainEvents";
 import { OrderCreatedEvent } from "../domain/order-created.event";
 

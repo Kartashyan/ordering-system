@@ -3,11 +3,11 @@ import { DomainEvents } from "../../shared/DomainEvents";
 import {
   NotifyKitchenEvent,
   NotifyKitchenEventPayload,
-} from "../../orders/domain/events/NotifyKitchenEvent";
+} from "../../orders/domain/events/notify-kitchen.event";
 import { OrderCreatedEventPayload } from "../../orders/domain/events/OrderCreatedEvent";
-import { getNextOrderController } from "../../orders/infra/GetNextOrderController";
-import { kitchenQueue } from "../../orders/infra/KitchenQueue";
-import { orderReadyController } from "../../orders/infra/OrderReadyController";
+import { getNextOrderController } from "../../orders/infra/get-next-order.controller";
+import { kitchenQueue } from "../../orders/infra/kitchen.queue";
+import { orderReadyController } from "../../orders/infra/order-ready.controller";
 const router = Router();
 
 DomainEvents.subscribeToEvent(

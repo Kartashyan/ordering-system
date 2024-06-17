@@ -1,6 +1,6 @@
 import { OrderRepository } from "../domain/ports/OrderRepositoryInterface";
 import { StatusStateManager } from "../domain/entities/OrderStatusManager";
-import { orderRepository } from "../infra/OrderDBRepository";
+import { orderRepository } from "../infra/order-prisma.repo-adapter";
 
 export class OrderStatusService {
   private orderRepository: OrderRepository;

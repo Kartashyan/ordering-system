@@ -2,7 +2,7 @@ import express from "express";
 import {
   PickupOrderStatusUsecase,
   pickupOrderStatusUsecase,
-} from "../application/PickupOrderUsecase";
+} from "../application/pickup-order.usecase";
 
 export class PickupOrderController {
   private useCase: PickupOrderStatusUsecase;

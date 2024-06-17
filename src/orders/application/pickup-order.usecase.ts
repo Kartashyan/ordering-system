@@ -1,6 +1,6 @@
 import { OrderRepository } from "../domain/ports/OrderRepositoryInterface";
 import { OrderStatuses } from "../domain/entities/OrderStatusManager";
-import { orderRepository } from "../infra/OrderDBRepository";
+import { orderRepository } from "../infra/order-prisma.repo-adapter";
 type Success = { success: true };
 type Failure = { success: false; reason: string };
 type UsecaseResponse = Success | Failure;

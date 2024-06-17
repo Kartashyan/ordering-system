@@ -1,11 +1,11 @@
 import { OrderRepository } from "../domain/ports/OrderRepositoryInterface";
 import { Order } from "../domain/entities/Order";
-import { kitchenQueue } from "../infra/KitchenQueue";
-import { orderRepository } from "../infra/OrderDBRepository";
+import { kitchenQueue } from "../infra/kitchen.queue";
+import { orderRepository } from "../infra/order-prisma.repo-adapter";
 import {
   OrderStatusService,
   orderStatusService,
-} from "./UpdateOrderStatusUsecase";
+} from "./update-order-status.usecase";
 
 type Success<S> = { success: true; data: S };
 type Failure = { success: false; reason: string };

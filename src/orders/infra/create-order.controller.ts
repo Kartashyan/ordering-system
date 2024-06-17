@@ -1,7 +1,7 @@
 import { z } from "zod";
-import { CreateOrderUsecase } from "../application/CreateOrderUsecase";
+import { CreateOrderUsecase } from "../application/create-order.usecase";
 import express from "express";
-import { orderRepository } from "./OrderDBRepository";
+import { orderRepository } from "./order-prisma.repo-adapter";
 import { OrderDto, OrderDtoSchema } from "../dto/orderDto";
 
 class CreateOrderController {

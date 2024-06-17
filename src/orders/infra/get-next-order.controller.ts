@@ -2,7 +2,7 @@ import express from "express";
 import {
   GetNextOrderUsecase,
   getNextOrderUsecase,
-} from "../application/GetNextOrderUsecase";
+} from "../application/get-next-order.usecase";
 
 export class GetNextOrderController {
   private useCase: GetNextOrderUsecase;

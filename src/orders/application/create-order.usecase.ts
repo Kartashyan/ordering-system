@@ -1,7 +1,7 @@
 import { OrderRepository } from "../domain/ports/OrderRepositoryInterface";
 import { Order } from "../domain/order.aggregate";
 import { OrderDto } from "../dto/orderDto";
-import { orderRepository } from "../infra/OrderDBRepository";
+import { orderRepository } from "../infra/order-prisma.repo-adapter";
 
 type Success = { success: true };
 type Failure = { success: false; reason: string };
