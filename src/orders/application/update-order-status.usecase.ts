@@ -1,4 +1,4 @@
-import { OrderRepository } from "../domain/ports/OrderRepositoryInterface";
+import { OrderRepository } from "../domain/ports/order.repo-port";
 import { StatusStateManager } from "../domain/entities/OrderStatusManager";
 import { orderRepository } from "../infra/order-prisma.repo-adapter";
 
