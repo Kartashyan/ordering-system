@@ -1,7 +1,7 @@
 import { Aggregate, ID, Result, UID } from "../../shared/lib";
 import { OrderStatus, OrderStatuses, StatusStateManager } from "./entities/OrderStatusManager";
+import { StatusTransitionFailedEvent } from "./events/wrong-status-transition.event";
 import { OrderItem, OrderItemProps } from "./order-item.value-object";
-import OrderCreatedEvent from "./order-created.event";
 
 interface OrderProps {
     id: UID;
@@ -50,9 +50,7 @@ export class Order extends Aggregate<OrderProps> {
     public changeStatusTo(status: string): void {
         const newStatus = OrderStatus.create(status).value;
         if (!StatusStateManager.canTransition(this.status, newStatus)) {
-            throw new Error(
-                `Transitioning order status from ${this.status} to ${newStatus} is prohibited`
-            );
+            this.addEvent(new StatusTransitionFailedEvent(this.getId(), this.status, newStatus));
         }
         this.props.status = newStatus;
     }
