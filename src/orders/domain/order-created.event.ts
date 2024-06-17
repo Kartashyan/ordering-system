@@ -5,7 +5,7 @@ export class OrderCreatedEvent implements DomainEvent<Order>{
 	eventName: string;
 	aggregate: Order;
 	constructor(order: Order) {
-		this.eventName = "OrderCreatedEvent";
+		this.eventName = "Orders:OrderCreatedEvent";
 		this.aggregate = order;
 	}
 }
