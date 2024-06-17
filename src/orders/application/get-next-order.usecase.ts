@@ -1,3 +1,5 @@
+import { Result } from "../../shared/lib";
+import { Order } from "../domain/order.aggregate";
 import { OrderRepository } from "../domain/ports/order.repo-port";
 import { kitchenQueue } from "../infra/kitchen.queue";
 import { orderRepository } from "../infra/order-prisma.repo-adapter";
@@ -5,9 +7,6 @@ import {
   OrderStatusService,
   orderStatusService,
 } from "./update-order-status.usecase";
-import { Result } from "../../shared/lib";
-import { Order } from "../domain/order.aggregate";
-import { OrderMapper } from "../infra/order.mapper";
 
 export class GetNextOrderUsecase {
   private orderRepository: OrderRepository;
