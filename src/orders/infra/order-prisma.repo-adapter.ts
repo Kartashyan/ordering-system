@@ -1,5 +1,5 @@
 import { Order as OrderSchema, PrismaClient } from "@prisma/client";
-import { OrderModel, OrderRepository } from "../domain/ports/OrderRepositoryInterface";
+import { OrderModel, OrderRepository } from "../domain/ports/order.repo-port";
 import { Order } from "../domain/order.aggregate";
 import { OrderMapper } from "./order.mapper";
 import { DomainEvents } from "../../shared/DomainEvents";
@@ -47,7 +47,7 @@ export class OrderRepositoryImpl implements OrderRepository {
     DomainEvents.publishEvent(new OrderCreatedEvent(order));
   }
 
-  async find(id: string): Promise<OrderModel> {
+  async find(id: string): Promise<Order> {
     const result = await this.prisma.order.findUnique({
       where: {
         id,
@@ -74,11 +74,11 @@ export class OrderRepositoryImpl implements OrderRepository {
       quantity: item.quantity,
     }));
 
-    return {
+    return OrderMapper.toDomain({
       id: result.id,
-      status: result.status,
       items,
-    };
+      status: result.status,
+    });
   }
 }
 
