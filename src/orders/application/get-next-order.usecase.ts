@@ -1,15 +1,13 @@
 import { OrderRepository } from "../domain/ports/OrderRepositoryInterface";
-import { Order } from "../domain/entities/Order";
 import { kitchenQueue } from "../infra/kitchen.queue";
 import { orderRepository } from "../infra/order-prisma.repo-adapter";
 import {
   OrderStatusService,
   orderStatusService,
 } from "./update-order-status.usecase";
-
-type Success<S> = { success: true; data: S };
-type Failure = { success: false; reason: string };
-type UsecaseResponse<S> = Success<S> | Failure;
+import { Result } from "../../shared/lib";
+import { Order } from "../domain/order.aggregate";
+import { OrderMapper } from "../infra/order.mapper";
 
 export class GetNextOrderUsecase {
   private orderRepository: OrderRepository;
@@ -21,17 +19,17 @@ export class GetNextOrderUsecase {
     this.orderRepository = orderRepository;
     this.updateOrderStatusUsecase = updateOrderStatusUsecase;
   }
-  async execute(): Promise<UsecaseResponse<Order>> {
+  async execute(): Promise<Result<Order>> {
     const orderId = kitchenQueue.dequeue();
     if (!orderId) {
-      return { success: false, reason: "No orders" };
+      return Result.fail("No orders in queue");
     }
     await this.updateOrderStatusUsecase.updateToNext({ id: orderId });
     const order = await this.orderRepository.find(orderId);
     if (!order) {
-      return { success: false, reason: "Order not found" };
+      return Result.fail("Order not found");
     }
-    return { success: true, data: order };
+    return Result.Ok(OrderMapper.toDomain(order));
   }
 }
 

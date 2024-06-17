@@ -1,13 +1,8 @@
 /**
  * @summary The result is used to returns a operation result instead the own value.
- * @interface IResult<T, D, M>;
+ * @interface IResult<T, D>;
+ * @classdesc on `T` refer to type of the value and `D` type of the error.
  * @default D is string.
- *
- * @method `value()` get result value. return null if result is failure.
- * @method `error()` get result error. returns null if result is success.
- * @method `isFail()` check is result is failure
- * @method `isOk()` check if result is success
- * @method `toObject()` get an object with result state
  */
 
 export interface IResultObject<T, D> {
