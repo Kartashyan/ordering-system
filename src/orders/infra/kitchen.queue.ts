@@ -1,4 +1,3 @@
-import { Order } from "../domain/entities/Order";
 
 export class KitchenQueue {
   items: string[];
