@@ -1,20 +1,17 @@
-import { OrderRepository } from "../domain/ports/OrderRepositoryInterface";
+import { OrderRepository } from "../domain/ports/order.repo-port";
 import { Order } from "../domain/order.aggregate";
 import { OrderDto } from "../dto/orderDto";
 import { orderRepository } from "../infra/order-prisma.repo-adapter";
-
-type Success = { success: true };
-type Failure = { success: false; reason: string };
-type UsecaseResponse = Success | Failure;
+import { Result } from "../../shared/lib";
 
 export class CreateOrderUsecase {
   private orderRepository: OrderRepository;
   constructor(orderRepository: OrderRepository) {
     this.orderRepository = orderRepository;
   }
-  async execute(orderDto: OrderDto): Promise<UsecaseResponse> {
+  async execute(orderDto: OrderDto): Promise<Result<void>> {
     if (orderDto.items.length === 0) {
-      return { success: false, reason: "Order should have at least one item" };
+      return Result.fail("Order must have at least one item");
     }
     const orderItems = orderDto.items.map(item => ({
       productId: item.id.toString(),
@@ -22,9 +19,17 @@ export class CreateOrderUsecase {
     }));
     const order = Order.create(orderItems);
 
-    await this.orderRepository.save(order.value());
-    
-    return { success: true };
+    try {
+      await this.orderRepository.save(order.value());
+      return Result.Ok();
+    } catch (error: unknown) {
+
+      const message = `Error creating order: ${String(
+        typeof error === "string" ? error : JSON.stringify(error)
+      )}`;
+
+      return Result.fail(message);
+    }
   }
 }
 
