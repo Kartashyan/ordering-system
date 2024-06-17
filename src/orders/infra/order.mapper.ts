@@ -1,7 +1,7 @@
 import { ID } from "../../shared/lib";
 import { OrderItem } from "../domain/order-item.value-object";
 import { Order } from "../domain/order.aggregate";
-import { OrderModel } from "../domain/ports/OrderRepositoryInterface";
+import { OrderModel } from "../domain/ports/order.repo-port";
 
 interface OrderPersistanceModel {
     id: string;
