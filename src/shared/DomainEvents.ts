@@ -6,7 +6,7 @@ export class DomainEvents {
   private static emitter = new EventEmitter();
   static publishEvent(event: DomainEvent): void {
     this.events.push(event);
-    this.emitter.emit(event.eventName, event.aggregate.toObject());
+    this.emitter.emit(event.eventName, event.payload);
   }
   static subscribeToEvent(eventType: string, callback: (payload: any) => void) {
     this.emitter.on(eventType, callback);
