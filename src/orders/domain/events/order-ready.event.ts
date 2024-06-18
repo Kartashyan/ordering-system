@@ -1,13 +1,10 @@
 import { DomainEvent } from "../../../shared/lib/core/domain-event";
-import { Order } from "../order.aggregate";
 
 export class OrderReadyEvent implements DomainEvent {
-  readonly eventName: string = "Orders:order-ready";
-  readonly aggregate: Order;
-  constructor(order: Order) {
-    this.aggregate = order;
-  }
-  static get eventName() {
-    return this.name;
+  readonly eventName: string = "order-ready";
+  readonly occurredOn: Date;
+  constructor(readonly aggregateId: string) {
+    this.occurredOn = new Date();
+    this.aggregateId = aggregateId;
   }
 }
