@@ -1,21 +1,15 @@
 import { Router } from "express";
-import { DomainEvents } from "../../shared/DomainEvents";
-import {
-  NotifyKitchenEvent,
-  NotifyKitchenEventPayload,
-} from "../../orders/domain/events/notify-kitchen.event";
-import { OrderCreatedEventPayload } from "../../orders/domain/events/OrderCreatedEvent";
 import { getNextOrderController } from "../../orders/infra/get-next-order.controller";
 import { kitchenQueue } from "../../orders/infra/kitchen.queue";
 import { orderReadyController } from "../../orders/infra/order-ready.controller";
+import { DomainEvents } from "../../shared/DomainEvents";
 const router = Router();
 
 DomainEvents.subscribeToEvent(
   "order-created",
-  (payload: OrderCreatedEventPayload) => {
+  (payload: any) => {
     console.log("Order created", payload);
     kitchenQueue.enqueue(payload);
-    DomainEvents.publishEvent(new NotifyKitchenEvent(payload));
   }
 );
 
@@ -36,8 +30,8 @@ router.get("/events", (req, res) => {
   res.setHeader("Connection", "keep-alive");
 
   DomainEvents.subscribeToEvent(
-    "notify-kitchen",
-    (payload: NotifyKitchenEventPayload) => {
+    "order-created",
+    (payload: any) => {
       console.log("Order created", payload);
       // send a nodification to the kitchen (server sent events)
       res.write(`data: ${JSON.stringify(payload)}`);
