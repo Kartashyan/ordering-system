@@ -1,6 +1,4 @@
 import { PrismaClient } from "@prisma/client";
-import { DomainEvents } from "../../shared/DomainEvents";
-import { OrderCreatedEvent } from "../domain/order-created.event";
 import { Order } from "../domain/order.aggregate";
 import { OrderRepository } from "../domain/ports/order.repo-port";
 import { OrderMapper } from "./order.mapper";
@@ -44,7 +42,7 @@ export class OrderRepositoryImpl implements OrderRepository {
     });
 
     await this.prisma.$transaction([createOrder, ...createOrderItems]);
-    DomainEvents.publishEvent(new OrderCreatedEvent(order));
+    await order.dispatchAll();
   }
 
   async find(id: string): Promise<Order> {
