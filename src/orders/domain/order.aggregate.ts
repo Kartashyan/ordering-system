@@ -1,6 +1,7 @@
 import { Aggregate, ID, Result, UID } from "../../shared/lib";
 import { OrderStatus, OrderStatuses, StatusStateManager } from "./entities/OrderStatusManager";
 import { StatusTransitionFailedEvent } from "./events/wrong-status-transition.event";
+import OrderCreatedEvent from "./order-created.event";
 import { OrderItem, OrderItemProps } from "./order-item.value-object";
 
 interface OrderProps {
@@ -41,9 +42,9 @@ export class Order extends Aggregate<OrderProps> {
             Result.fail("Order should have at least one item");
         }
         const isNewOrder = !id;
-        // if (isNewOrder) {
-        //     order.addEvent(new OrderCreatedEvent());
-        // }
+        if (isNewOrder) {
+            order.addEvent(new OrderCreatedEvent(order.getId()));
+        }
         return Result.Ok(order);
     }
 
