@@ -1,15 +1,11 @@
 
 export interface UID<T = string> {
-	toShort(): UID<string>;
 	value(): string;
 	isNew(): boolean;
 	createdAt(): Date;
-	isShort(): boolean;
 	equal(id: UID<string>): boolean;
 	isEqual(id: UID<string>): boolean;
 	deepEqual(id: UID<string>): boolean;
-	cloneAsNew(): UID<string>;
-	clone(): UID<T>;
 }
 
 export interface ICommand<A, B> {
