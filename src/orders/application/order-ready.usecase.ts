@@ -1,4 +1,4 @@
-import { DomainEvents } from "../../shared/DomainEvents";
+import { LocalEventManager } from "../../shared/DomainEvents";
 import { OrderRepository } from "../domain/ports/order.repo-port";
 import { OrderReadyEvent } from "../domain/events/order-ready.event";
 import { orderRepository } from "../infra/order-prisma.repo-adapter";
@@ -24,7 +24,7 @@ export class OrderReadyUsecase {
       }
     }
     await this.orderRepository.save(order);
-    DomainEvents.publishEvent(new OrderReadyEvent(order));
+    LocalEventManager.publishEvent(new OrderReadyEvent(order.getId()));
     return Result.Ok();
   }
 }
