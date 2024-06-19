@@ -1,8 +1,7 @@
 import { DomainEvent } from "../../shared/lib/core/domain-event";
-import { Order } from "./order.aggregate";
 
 export class OrderCreatedEvent implements DomainEvent {
-	eventName: string = "Orders:OrderCreatedEvent";;
+	eventName: string = "order-created";
 	occurredOn: Date;
 	constructor(public aggregateId: string) {
 		this.occurredOn = new Date();
