@@ -1,4 +1,4 @@
-import { DEvent } from "../types";
+import { LocalEventManager } from "../../DomainEvents";
 import { DomainEvent } from "./domain-event";
 
 export class DomainEvents<T> {
@@ -16,6 +16,7 @@ export class DomainEvents<T> {
     );
     console.log(`EVENT DISPATCH: ${eventName}, ${eventBody}`);
     if (!_event) return;
+    LocalEventManager.publishEvent(_event);
     this.removeEvent(eventName);
   }
 
@@ -43,7 +44,10 @@ export class DomainEvents<T> {
   }
 
   async dispatchEvents(): Promise<void> {
-
+    for (const event of this._events) {
+      LocalEventManager.publishEvent(event);
+    }
+    this.clearEvents();
   }
 }
 
