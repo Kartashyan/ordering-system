@@ -1,12 +1,11 @@
 import { Router } from "express";
 import { createOrderController } from "../../orders/infra/create-order.controller";
 import { pickupOrderController } from "../../orders/infra/pickup-order.controller";
-import { DomainEvents } from "../../shared/DomainEvents";
-import { OrderReadyEvent } from "../../orders/domain/events/order-ready.event";
+import { LocalEventManager } from "../../shared/DomainEvents";
 const router = Router();
 
-DomainEvents.subscribeToEvent(
-  OrderReadyEvent.eventName,
+LocalEventManager.subscribeToEvent(
+  "order-ready",
   (payload: { orderId: string }) => {
     console.log("Order ready for pickup", payload);
   }
@@ -27,8 +26,8 @@ router.get("/events", (req, res) => {
   res.setHeader("Cache-Control", "no-cache");
   res.setHeader("Connection", "keep-alive");
 
-  DomainEvents.subscribeToEvent(
-    OrderReadyEvent.eventName,
+  LocalEventManager.subscribeToEvent(
+    "order-created",
     (payload: string) => {
       console.log("Order created", payload);
       // send a nodification to the kitchen (server sent events)
