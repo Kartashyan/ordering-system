@@ -1,4 +1,4 @@
-import { DomainEvents } from "../../shared/DomainEvents";
+import { LocalEventManager } from "../../shared/DomainEvents";
 import { PaymentCreatedEvent } from "../domain/events/PaymentCreatedEvent";
 import {
   PaymentRepository,
@@ -19,7 +19,7 @@ export class PaymentService {
   async charge(paymentData: PaymentData) {
     const payment = Payment.create(paymentData);
     const result = await this.paymentRepository.save(payment);
-    DomainEvents.publishEvent(new PaymentCreatedEvent(payment.id));
+    LocalEventManager.publishEvent(new PaymentCreatedEvent(payment.id));
     if (!result) {
       throw new Error("Failed to charge payment");
     }
