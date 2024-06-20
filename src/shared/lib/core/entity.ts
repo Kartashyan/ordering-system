@@ -1,13 +1,12 @@
-import { UID } from "../types";
-import ID from "./id";
+import { ID } from "./id";
 
 const isEntity = (v: any): v is Entity<any> => {
 	return v instanceof Entity;
 };
 export class Entity<Props> {
-	protected id: UID;
+	protected id: ID;
 	public readonly props: Props;
-	constructor(props: Props, id?: UID) {
+	constructor(props: Props, id?: ID) {
 		this.id = id ? id : ID.create();
 		this.props = props;
 	}
@@ -29,7 +28,7 @@ export class Entity<Props> {
 		return this.id.isEqual(other.id);
 	}
 
-	hashCode(): UID<string> {
+	hashCode(): ID<string> {
 		const name = Reflect.getPrototypeOf(this);
 		return ID.create(`[Entity@${name?.constructor?.name}]:${this.id.value()}`);
 	}
