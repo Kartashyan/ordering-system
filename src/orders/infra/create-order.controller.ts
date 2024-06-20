@@ -18,8 +18,8 @@ class CreateOrderController {
     }
     try {
       const result = await this.useCase.execute(orderDto);
-      if (!result.success) {
-        res.status(400).send(result.reason);
+      if (result.isFail()) {
+        res.status(400).send(result.error());
         return;
       }
       res.status(201).send("Order created");
