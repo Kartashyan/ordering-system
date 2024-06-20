@@ -18,9 +18,6 @@ export class Aggregate<Props> extends Entity<Props> {
 		return ID.create(`[Aggregate@${name?.constructor.name}]:${this.id.value()}`);
 	}
 
-	/**
-	 * Event Manger to subscribe or dispatch global events
-	 */
 	public context(): EventManager {
 		return Context.events();
 	}
