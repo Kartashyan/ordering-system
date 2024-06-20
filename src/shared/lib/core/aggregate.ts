@@ -1,4 +1,3 @@
-import { UID } from "../types";
 import { EventManager } from "./event-manager";
 import Context from "./context";
 import Entity from "./entity";
@@ -9,12 +8,12 @@ import { DomainEvent } from "./domain-event";
 export class Aggregate<Props> extends Entity<Props> {
 	private _domainEvents: DomainEvents<this>;
 
-	constructor(props: Props, id?: UID) {
+	constructor(props: Props, id?: ID) {
 		super(props, id);
 		this._domainEvents = new DomainEvents(this);
 	}
 
-	public hashCode(): UID<string> {
+	public hashCode(): ID<string> {
 		const name = Reflect.getPrototypeOf(this);
 		return ID.create(`[Aggregate@${name?.constructor.name}]:${this.id.value()}`);
 	}
