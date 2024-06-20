@@ -28,11 +28,6 @@ export class Entity<Props> {
 		return this.id.isEqual(other.id);
 	}
 
-	hashCode(): ID<string> {
-		const name = Reflect.getPrototypeOf(this);
-		return ID.create(`[Entity@${name?.constructor?.name}]:${this.id.value()}`);
-	}
-
 	isNew(): boolean {
 		return this.id.isNew();
 	}
