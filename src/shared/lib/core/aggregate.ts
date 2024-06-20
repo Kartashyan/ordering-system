@@ -13,11 +13,6 @@ export class Aggregate<Props> extends Entity<Props> {
 		this._domainEvents = new DomainEvents(this);
 	}
 
-	public hashCode(): ID<string> {
-		const name = Reflect.getPrototypeOf(this);
-		return ID.create(`[Aggregate@${name?.constructor.name}]:${this.id.value()}`);
-	}
-
 	public context(): EventManager {
 		return Context.events();
 	}
