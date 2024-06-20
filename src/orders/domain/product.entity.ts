@@ -1,9 +1,9 @@
-import { Entity, ID, UID, ValueObject } from "../../shared/lib";
+import { Entity, ID } from "../../shared/lib";
 import { Price } from "./price.value-object";
 import { ProductName } from "./product-name.value-object";
 
 interface ProductProps {
-    id: UID;
+    id: ID;
     name: ProductName;
     price: Price;
 }
@@ -21,7 +21,7 @@ export class Product extends Entity<ProductProps> {
         return this.props.price;
     }
 
-    public static create(name: string, price: number, id?: UID): Product {
+    public static create(name: string, price: number, id?: ID): Product {
         return new Product({
             id: id || ID.create(),
             name: ProductName.create(name),
