@@ -1,11 +1,11 @@
-import { Aggregate, ID, Result, UID } from "../../shared/lib";
+import { Aggregate, ID, Result } from "../../shared/lib";
 import { OrderStatus, OrderStatuses, StatusStateManager } from "./entities/OrderStatusManager";
 import { StatusTransitionFailedEvent } from "./events/wrong-status-transition.event";
 import OrderCreatedEvent from "./order-created.event";
 import { OrderItem, OrderItemProps } from "./order-item.value-object";
 
 interface OrderProps {
-    id: UID;
+    id: ID;
     status: string;
     items: OrderItem[];
 }
@@ -32,7 +32,7 @@ export class Order extends Aggregate<OrderProps> {
 
     public static create(
         items: OrderItemProps[],
-        id?: UID,
+        id?: ID,
         status?: string
     ): Result<Order> {
         const orderItems = items.map((item) => OrderItem.create(item.productId, item.quantity).value());
