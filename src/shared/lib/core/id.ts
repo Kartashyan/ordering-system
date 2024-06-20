@@ -1,4 +1,4 @@
-import { UUID } from './crypto';
+import { randomUUID } from './crypto';
 import { UID } from "../types";
 
 export class ID<T = string> implements UID<T> {
@@ -10,7 +10,7 @@ export class ID<T = string> implements UID<T> {
 	private constructor(id?: T) {
 		this._createdAt = new Date();
 		if (typeof id === 'undefined') {
-			const uuid = UUID();
+			const uuid = randomUUID();
 			this._value = uuid;
 			this._isNew = true;
 			return this;
