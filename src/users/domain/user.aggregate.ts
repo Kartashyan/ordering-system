@@ -1,4 +1,4 @@
-import { Aggregate, ID } from "../shared/lib";
+import { Aggregate, ID } from "../../shared/lib";
 import { Email } from "./email.value-object";
 import { Password } from "./password.value-object";
 import { Role } from "./role.value-object";
