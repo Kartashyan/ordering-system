@@ -14,7 +14,7 @@ type UserProps = {
     lastLogin: Date;
     };
 
-export class UserAggregate extends Aggregate<UserProps> {
+export class User extends Aggregate<UserProps> {
   private _email: Email;
   private _password: Password;
   private _role: Role;
@@ -71,8 +71,8 @@ export class UserAggregate extends Aggregate<UserProps> {
     updatedOn: Date,
     lastLogin: Date,
     id?: ID
-  ): UserAggregate {
-    return new UserAggregate(
+  ): User {
+    return new User(
       {
         email: Email.create(email),
         password: Password.create(password),
