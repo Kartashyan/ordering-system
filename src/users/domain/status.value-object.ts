@@ -1,4 +1,5 @@
-import { ValueObject } from "../../shared/lib";
+import { ValueObject } from "../../shared";
+
 
 export class Status extends ValueObject<string> {
   private constructor(status: string) {
