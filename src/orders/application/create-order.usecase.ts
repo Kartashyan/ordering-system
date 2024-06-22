@@ -2,7 +2,7 @@ import { OrderRepository } from "../domain/ports/order.repo-port";
 import { Order } from "../domain/order.aggregate";
 import { OrderDto } from "../dto/orderDto";
 import { orderRepository } from "../infra/order-prisma.repo-adapter";
-import { Result } from "../../shared/lib";
+import { Result } from "../../shared";
 
 export class CreateOrderUsecase {
   private orderRepository: OrderRepository;
