@@ -2,7 +2,7 @@ import { LocalEventManager } from "../../shared/DomainEvents";
 import { OrderRepository } from "../domain/ports/order.repo-port";
 import { OrderReadyEvent } from "../domain/events/order-ready.event";
 import { orderRepository } from "../infra/order-prisma.repo-adapter";
-import { Result } from "../../shared/lib";
+import { Result } from "../../shared";
 
 export class OrderReadyUsecase {
   private orderRepository: OrderRepository;
