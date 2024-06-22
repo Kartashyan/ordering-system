@@ -1,5 +1,5 @@
 import { EventEmitter } from "events";
-import { DomainEvent } from "./lib/core/domain-event";
+import { DomainEvent } from "./core/domain-event";
 
 export class LocalEventManager {
   private static events: DomainEvent[] = [];
