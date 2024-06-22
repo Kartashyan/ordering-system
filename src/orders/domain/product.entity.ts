@@ -1,4 +1,4 @@
-import { Entity, ID } from "../../shared/lib";
+import { Entity, ID } from "../../shared";
 import { Price } from "./price.value-object";
 import { ProductName } from "./product-name.value-object";
 
