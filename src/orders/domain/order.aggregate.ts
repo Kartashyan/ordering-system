@@ -1,4 +1,5 @@
-import { Aggregate, ID, Result } from "../../shared/lib";
+
+import { Aggregate, ID, Result } from "../../shared";
 import { OrderStatus, OrderStatuses, StatusStateManager } from "./entities/OrderStatusManager";
 import { StatusTransitionFailedEvent } from "./events/wrong-status-transition.event";
 import OrderCreatedEvent from "./order-created.event";
