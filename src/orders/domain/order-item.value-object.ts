@@ -1,4 +1,4 @@
-import { Result, ValueObject } from "../../shared/lib";
+import { Result, ValueObject } from "../../shared";
 
 export interface OrderItemProps {
     productId: string;
