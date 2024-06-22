@@ -1,4 +1,4 @@
-import { DomainEvent } from "../../../shared/lib/core/domain-event";
+import { DomainEvent } from "../../../shared/core/domain-event";
 
 export class StatusTransitionFailedEvent implements DomainEvent {
     eventName = "StatusTransitionFailed";
