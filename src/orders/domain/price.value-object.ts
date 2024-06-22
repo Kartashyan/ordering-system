@@ -1,4 +1,4 @@
-import { ValueObject } from "../../shared/lib";
+import { ValueObject } from "../../shared";
 
 interface PriceProps {
   value: number;
