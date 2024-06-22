@@ -1,4 +1,4 @@
-import { ValueObject } from "../../shared/lib";
+import { ValueObject } from "../../shared";
 
 export class ProductName extends ValueObject<{ value: string }> {
     public readonly value: string;
