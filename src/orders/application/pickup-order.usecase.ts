@@ -1,4 +1,4 @@
-import { Result } from "../../shared/lib";
+import { Result } from "../../shared";
 import { OrderStatuses } from "../domain/entities/OrderStatusManager";
 import { OrderRepository } from "../domain/ports/order.repo-port";
 import { orderRepository } from "../infra/order-prisma.repo-adapter";
