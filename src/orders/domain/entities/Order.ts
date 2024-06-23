@@ -2,7 +2,7 @@ import {
   OrderStatus,
   OrderStatuses,
   StatusStateManager,
-} from "./OrderStatusManager";
+} from "../OrderStatusManager";
 
 export type OrderItemProps = { id: number; quantity: number };
 

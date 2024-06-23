@@ -1,6 +1,6 @@
 
 import { Aggregate, ID, Result } from "../../shared";
-import { OrderStatus, OrderStatuses, StatusStateManager } from "./entities/OrderStatusManager";
+import { OrderStatus, OrderStatuses, StatusStateManager } from "./OrderStatusManager";
 import { StatusTransitionFailedEvent } from "./events/wrong-status-transition.event";
 import OrderCreatedEvent from "./order-created.event";
 import { OrderItem, OrderItemProps } from "./order-item.value-object";

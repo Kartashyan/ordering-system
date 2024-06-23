@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { Order, OrderItemProps } from "./Order";
-import { StatusStateManager } from "./OrderStatusManager";
+import { StatusStateManager } from "../OrderStatusManager";
 
 describe("Order", () => {
   let order: Order;
