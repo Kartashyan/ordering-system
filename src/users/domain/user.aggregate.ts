@@ -1,6 +1,7 @@
 
 import { Aggregate, ID } from "../../shared";
 import { Email } from "./email.value-object";
+import { UserCreatedEvent } from "./events/user-created.event";
 import { Password } from "./password.value-object";
 import { Role } from "./role.value-object";
 import { Status } from "./status.value-object";
@@ -42,24 +43,11 @@ export class User extends Aggregate<UserProps> {
     return this._status;
   }
 
-  public static create(
-    email: string,
-    password: string,
-    role: string,
-    status: string,
-    createdOn: Date,
-    updatedOn: Date,
-    lastLogin: Date,
-    id?: ID
-  ): User {
-    return new User(
-      {
-        email: Email.create(email),
-        password: Password.create(password),
-        role: Role.create(role),
-        status: Status.create(status),
-      },
-      id
-    );
+  public static create(props: UserProps, id?: ID): User {
+    const user = new User(props, id);
+    if (!id) {
+      user.addEvent(new UserCreatedEvent());
+    }
+    return user;
   }
 }
