@@ -10,9 +10,6 @@ type UserProps = {
     password: Password;
     role: Role;
     status: Status;
-    createdOn: Date;
-    updatedOn: Date;
-    lastLogin: Date;
     };
 
 export class User extends Aggregate<UserProps> {
@@ -20,9 +17,6 @@ export class User extends Aggregate<UserProps> {
   private _password: Password;
   private _role: Role;
   private _status: Status;
-  private _createdOn: Date;
-  private _updatedOn: Date;
-  private _lastLogin: Date;
 
   private constructor(props: UserProps, id?: ID) {
     super(props, id);
@@ -30,9 +24,6 @@ export class User extends Aggregate<UserProps> {
     this._password = props.password;
     this._role = props.role;
     this._status = props.status;
-    this._createdOn = props.createdOn;
-    this._updatedOn = props.updatedOn;
-    this._lastLogin = props.lastLogin;
   }
 
   public get email(): Email {
@@ -51,18 +42,6 @@ export class User extends Aggregate<UserProps> {
     return this._status;
   }
 
-  public get createdOn(): Date {
-    return this._createdOn;
-  }
-
-  public get updatedOn(): Date {
-    return this._updatedOn;
-  }
-
-  public get lastLogin(): Date {
-    return this._lastLogin;
-  }
-
   public static create(
     email: string,
     password: string,
@@ -79,9 +58,6 @@ export class User extends Aggregate<UserProps> {
         password: Password.create(password),
         role: Role.create(role),
         status: Status.create(status),
-        createdOn,
-        updatedOn,
-        lastLogin,
       },
       id
     );
