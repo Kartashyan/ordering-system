@@ -7,11 +7,11 @@ import { Role } from "./role.value-object";
 import { Status } from "./status.value-object";
 
 type UserProps = {
-    email: Email;
-    password: Password;
-    role: Role;
-    status: Status;
-    };
+  email: Email;
+  password: Password;
+  role: Role;
+  status: Status;
+};
 
 export class User extends Aggregate<UserProps> {
   private _email: Email;
