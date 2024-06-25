@@ -8,14 +8,15 @@ export class Email extends ValueObject<string> {
 
   public static create(email: string): Result<Email> {
     if (!Email.isValid(email)) {
-      throw new Error("Invalid email");
+      return Result.fail("Invalid email");
     }
 
     return Result.Ok(new Email(email));
   }
 
   public static isValid(email: string): boolean {
+    const length = email.length;
     const re = /\S+@\S+\.\S+/;
-    return re.test(email);
+    return length >= 5 && length <= 255 && re.test(email);
   }
 }
