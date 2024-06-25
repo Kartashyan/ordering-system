@@ -1,4 +1,4 @@
-import { ValueObject } from "../../shared";
+import { Result, ValueObject } from "../../shared";
 
 
 export class Email extends ValueObject<string> {
@@ -6,12 +6,12 @@ export class Email extends ValueObject<string> {
     super(email);
   }
 
-  public static create(email: string): Email {
+  public static create(email: string): Result<Email> {
     if (!Email.isValid(email)) {
       throw new Error("Invalid email");
     }
 
-    return new Email(email);
+    return Result.Ok(new Email(email));
   }
 
   public static isValid(email: string): boolean {
