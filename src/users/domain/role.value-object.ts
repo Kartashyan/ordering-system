@@ -1,4 +1,4 @@
-import { ValueObject } from "../../shared";
+import { Result, ValueObject } from "../../shared";
 
 
 export class Role extends ValueObject<string> {
@@ -6,12 +6,12 @@ export class Role extends ValueObject<string> {
     super(role);
   }
 
-  public static create(role: string): Role {
+  public static create(role: string): Result<Role> {
     if (!Role.isValid(role)) {
-      throw new Error("Invalid role");
+      return Result.fail("Invalid role");
     }
 
-    return new Role(role);
+    return Result.Ok(new Role(role));
   }
 
   public static isValid(role: string): boolean {
