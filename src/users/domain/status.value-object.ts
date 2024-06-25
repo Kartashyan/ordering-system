@@ -1,4 +1,4 @@
-import { ValueObject } from "../../shared";
+import { Result, ValueObject } from "../../shared";
 
 
 export class Status extends ValueObject<string> {
@@ -6,12 +6,12 @@ export class Status extends ValueObject<string> {
     super(status);
   }
 
-  public static create(status: string): Status {
+  public static create(status: string): Result<Status> {
     if (!Status.isValid(status)) {
-      throw new Error("Invalid status");
+      return Result.fail("Invalid status");
     }
 
-    return new Status(status);
+    return Result.Ok(new Status(status));
   }
 
   public static isValid(status: string): boolean {
