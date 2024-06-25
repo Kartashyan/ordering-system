@@ -1,5 +1,3 @@
-import { EventManager } from "./event-manager";
-import Context from "./context";
 import Entity from "./entity";
 import DomainEvents from "./events";
 import ID from "./id";
@@ -11,10 +9,6 @@ export class Aggregate<Props> extends Entity<Props> {
 	constructor(props: Props, id?: ID) {
 		super(props, id);
 		this._domainEvents = new DomainEvents(this);
-	}
-
-	public context(): EventManager {
-		return Context.events();
 	}
 
 	dispatchEvent<E>(eventName: string, eventBody: E): void | Promise<void> {
