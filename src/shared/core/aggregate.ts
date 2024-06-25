@@ -11,10 +11,6 @@ export class Aggregate<Props> extends Entity<Props> {
 		this._domainEvents = new DomainEvents(this);
 	}
 
-	dispatchEvent<E>(eventName: string, eventBody: E): void | Promise<void> {
-		this._domainEvents.dispatchEvent(eventName, eventBody);
-	}
-
 	async dispatchAll(): Promise<void> {
 		await this._domainEvents.dispatchEvents();
 	};
@@ -25,10 +21,6 @@ export class Aggregate<Props> extends Entity<Props> {
 
 	addEvent(event: DomainEvent): void {
 		this._domainEvents.addEvent(event);
-	}
-
-	deleteEvent(eventName: string): void {
-		this._domainEvents.removeEvent(eventName);;
 	}
 
 	toObject(): Props {
