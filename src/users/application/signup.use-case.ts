@@ -40,7 +40,7 @@ export class SignupUseCase {
         const userExists = await this.userRepo.exists(userProps.email.value);
 
         if (userExists) {
-            return Result.fail("User with this email already exists");
+            return Result.fail("[signup.use-case]: User with this email already exists");
         }
 
         const userOrError = User.create(userProps);
