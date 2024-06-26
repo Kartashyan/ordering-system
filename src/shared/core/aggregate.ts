@@ -4,25 +4,29 @@ import { DomainEvent } from "./domain-event";
 import EventEmitter from "events";
 
 export class Aggregate<Props> extends Entity<Props> {
-	private _domainEvents: DomainEvent[];
+	#domainEvents: DomainEvent[];
 
 	constructor(props: Props, id?: ID) {		
 		super(props, id);
-		this._domainEvents = [];
+		this.#domainEvents = [];
 	}
 
 	async dispatchAll(emitter: EventEmitter = new EventEmitter()): Promise<void> {
-		this._domainEvents.forEach((event: DomainEvent) => {
+		this.#domainEvents.forEach((event: DomainEvent) => {
 			emitter.emit(event.eventName, event);
 		});
 	};
 
+	get domainEvents(): DomainEvent[] {
+		return this.#domainEvents;
+	}
+
 	clearEvents(): void {
-		this._domainEvents = [];
+		this.#domainEvents = [];
 	};
 
 	addEvent(event: DomainEvent): void {
-		this._domainEvents.push(event);
+		this.#domainEvents.push(event);
 	}
 
 	toObject(): Props {
