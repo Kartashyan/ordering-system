@@ -32,6 +32,38 @@ describe("SignupUseCase", () => {
         expect(result.isFail).toBeTruthy();
     });
 
+    it("should fail if provided email is invalid", async () => {
+        // Arrange
+        const command: CommandDTO = {
+            email: "test@example.com",
+            password: "pass",
+            role: "user",
+            status: "active",
+        };
+
+        //Act
+        const result: Result<void> = await signupUseCase.execute(command);
+
+        //Assert
+        expect(result.isFail()).toBe(true);
+        expect(result.error()).toContain("[signup.use-case]: Invalid user properties");
+    })
+
+    it("should fail if provided password is too short", async () => {
+        // Arrange
+        const command: CommandDTO = {
+            email: "test@example.com",
+            password: "pass",
+            role: "user",
+            status: "active",
+        };
+        // Act
+        const result: Result<void> = await signupUseCase.execute(command);
+        // Assert
+        expect(result.isFail()).toBe(true);
+        expect(result.error()).toContain("[signup.use-case]: Invalid user properties");
+    });
+
     it.skip("should create a new user", async () => {
         // Arrange
         const command: CommandDTO = {
