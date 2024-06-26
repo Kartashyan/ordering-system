@@ -36,8 +36,12 @@ export class SignupUseCase {
             role: roleOrError.value(),
             status: statusOrError.value(),
         };
-        
-        const user = User.create(userProps);
+
+        const userOrError = User.create(userProps);
+        if (userOrError.isFail()) {
+            return Result.fail("Invalid user");
+        }
+        const user = userOrError.value();
         await this.userRepo.save(user);
         return Result.Ok();
     }
