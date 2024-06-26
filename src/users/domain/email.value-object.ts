@@ -14,6 +14,10 @@ export class Email extends ValueObject<string> {
     return Result.Ok(new Email(email));
   }
 
+  get value(): string {
+    return this.props;
+  }
+
   public static isValid(email: string): boolean {
     const length = email.length;
     const re = /\S+@\S+\.\S+/;
