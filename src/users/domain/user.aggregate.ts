@@ -1,5 +1,5 @@
 
-import { Aggregate, ID } from "../../shared";
+import { Aggregate, ID, Result } from "../../shared";
 import { Email } from "./email.value-object";
 import { UserCreatedEvent } from "./events/user-created.event";
 import { Password } from "./password.value-object";
@@ -43,11 +43,11 @@ export class User extends Aggregate<UserProps> {
     return this._status;
   }
 
-  public static create(props: UserProps, id?: ID): User {
+  public static create(props: UserProps, id?: ID): Result<User> {
     const user = new User(props, id);
     if (!id) {
       user.addEvent(new UserCreatedEvent());
     }
-    return user;
+    return Result.Ok(user);
   }
 }
