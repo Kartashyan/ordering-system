@@ -6,7 +6,7 @@ import { Password } from "./password.value-object";
 import { Role } from "./role.value-object";
 import { Status } from "./status.value-object";
 
-type UserProps = {
+export type UserProps = {
   email: Email;
   password: Password;
   role: Role;
