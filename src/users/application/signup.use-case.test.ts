@@ -18,7 +18,6 @@ describe("SignupUseCase", () => {
     });
 
     it("should fail if user already exists", async () => {
-        // Arrange
         const command: CommandDTO = {
             email: "test@example.com",
             password: "password123",
@@ -33,7 +32,6 @@ describe("SignupUseCase", () => {
     });
 
     it("should fail if provided email is invalid", async () => {
-        // Arrange
         const command: CommandDTO = {
             email: "test@example.com",
             password: "pass",
@@ -41,25 +39,39 @@ describe("SignupUseCase", () => {
             status: "active",
         };
 
-        //Act
         const result: Result<void> = await signupUseCase.execute(command);
 
-        //Assert
         expect(result.isFail()).toBe(true);
         expect(result.error()).toContain("[signup.use-case]: Invalid user properties");
     })
 
     it("should fail if provided password is too short", async () => {
-        // Arrange
         const command: CommandDTO = {
             email: "test@example.com",
             password: "pass",
             role: "user",
             status: "active",
         };
-        // Act
+
         const result: Result<void> = await signupUseCase.execute(command);
-        // Assert
+
+        expect(result.isFail()).toBe(true);
+        expect(result.error()).toContain("[signup.use-case]: Invalid user properties");
+    });
+
+    it("should return an error if email is invalid", async () => {
+
+        const command: CommandDTO = {
+            email: "invalid-email",
+            password: "password123",
+            role: "user",
+            status: "active",
+        };
+
+
+        const result: Result<void> = await signupUseCase.execute(command);
+
+
         expect(result.isFail()).toBe(true);
         expect(result.error()).toContain("[signup.use-case]: Invalid user properties");
     });
@@ -80,24 +92,5 @@ describe("SignupUseCase", () => {
         expect(result.isOk()).toBe(true);
         // Additional assertions for verifying the user creation
     });
-
-    it.skip("should return an error if email is invalid", async () => {
-        // Arrange
-        const command: CommandDTO = {
-            email: "invalid-email",
-            password: "password123",
-            role: "user",
-            status: "active",
-        };
-
-        // Act
-        const result: Result<void> = await signupUseCase.execute(command);
-
-        // Assert
-        expect(result.isFail()).toBe(true);
-        expect(result.error).toBe("Invalid email");
-    });
-
-    // Add more test cases as needed
 
 });
