@@ -13,8 +13,8 @@ export class PickupOrderController {
     const id = req.params.orderId;
     try {
       const result = await this.useCase.execute({ id });
-      if (!result.success) {
-        res.status(400).send(result.reason);
+      if (!result.isOk()) {
+        res.status(400).send(result.error());
         return;
       }
       res.status(200).send("Order picked up");

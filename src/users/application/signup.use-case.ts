@@ -27,9 +27,9 @@ export class SignupUseCase {
         const userPropsError = Result.combine([emailOrError, passwordOrError, roleOrError, statusOrError]);
 
         if (userPropsError.isFail()) {
-            const error = userPropsError.error();
-            console.log("userPropsError.error", userPropsError.error());
-            return Result.fail(`[signup.use-case]: Invalid user properties`);
+            const errorList = userPropsError.error() as string[];
+            const messaage = errorList.join(", ");
+            return Result.fail(`[signup.use-case]: ${messaage}`);
         }
 
         const userProps = {

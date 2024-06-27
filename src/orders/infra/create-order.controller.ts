@@ -1,4 +1,3 @@
-import { z } from "zod";
 import { CreateOrderUsecase } from "../application/create-order.usecase";
 import express from "express";
 import { orderRepository } from "./order-prisma.repo-adapter";
