@@ -20,13 +20,13 @@ export class Result<T = void, D = string> {
 		this.#error = error ?? null;
 	}
 
-	public static Ok(): Result<void>;
+	public static ok(): Result<void>;
 
-	public static Ok<T, D = string>(data: T): Result<T, D>;
+	public static ok<T, D = string>(data: T): Result<T, D>;
 
-	public static Ok<T, D = string>(data: T): Result<T, D>;
+	public static ok<T, D = string>(data: T): Result<T, D>;
 
-	public static Ok<T, D = string>(data?: T): Result<T, D> {
+	public static ok<T, D = string>(data?: T): Result<T, D> {
 		const _data = typeof data === 'undefined' ? null : data;
 		const ok = new Result(true, _data, null) as unknown as Result<T, D>;
 		return Object.freeze(ok) as Result<T, D>;
@@ -46,7 +46,7 @@ export class Result<T = void, D = string> {
 			const errors = _results.map((result) => result.error());
 			return Result.fail(errors);
 		}
-		return Result.Ok();
+		return Result.ok();
 	}
 
 	value(): T {

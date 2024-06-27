@@ -10,7 +10,7 @@ export class Password extends ValueObject<string> {
       return Result.fail("Invalid password");
     }
 
-    return Result.Ok(new Password(password));
+    return Result.ok(new Password(password));
   }
 
   public static isValid(password: string): boolean {

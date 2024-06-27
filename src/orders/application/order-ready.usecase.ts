@@ -25,7 +25,7 @@ export class OrderReadyUsecase {
     }
     await this.orderRepository.save(order);
     LocalEventManager.publishEvent(new OrderReadyEvent(order.getId()));
-    return Result.Ok();
+    return Result.ok();
   }
 }
 

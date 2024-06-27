@@ -28,7 +28,7 @@ export class GetNextOrderUsecase {
     if (!order) {
       return Result.fail("Order not found");
     }
-    return Result.Ok(order);
+    return Result.ok(order);
   }
 }
 

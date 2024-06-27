@@ -21,7 +21,7 @@ export class CreateOrderUsecase {
 
     try {
       await this.orderRepository.save(order.value());
-      return Result.Ok();
+      return Result.ok();
     } catch (error: unknown) {
 
       const message = `Error creating order: ${String(

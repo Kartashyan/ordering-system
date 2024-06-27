@@ -48,6 +48,6 @@ export class User extends Aggregate<UserProps> {
     if (!id) {
       user.addEvent(new UserCreatedEvent());
     }
-    return Result.Ok(user);
+    return Result.ok(user);
   }
 }

@@ -51,6 +51,6 @@ export class SignupUseCase {
         }
         const user = userOrError.value();
         await this.userRepo.save(user);
-        return Result.Ok();
+        return Result.ok();
     }
 }

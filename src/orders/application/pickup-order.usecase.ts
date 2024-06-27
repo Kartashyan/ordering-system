@@ -23,7 +23,7 @@ export class PickupOrderStatusUsecase {
 
     try {
       await this.orderRepository.save(order);
-      return Result.Ok();
+      return Result.ok();
     } catch (error: unknown) {
       return Result.fail(
         `Error updating order status: ${String(

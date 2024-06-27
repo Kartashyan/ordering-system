@@ -11,7 +11,7 @@ export class Role extends ValueObject<string> {
       return Result.fail("Invalid role");
     }
 
-    return Result.Ok(new Role(role));
+    return Result.ok(new Role(role));
   }
 
   public static isValid(role: string): boolean {

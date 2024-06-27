@@ -46,7 +46,7 @@ export class Order extends Aggregate<OrderProps> {
         if (isNewOrder) {
             order.addEvent(new OrderCreatedEvent(order.getId()));
         }
-        return Result.Ok(order);
+        return Result.ok(order);
     }
 
     public changeStatusTo(status: string): void {

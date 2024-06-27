@@ -11,7 +11,7 @@ export class Email extends ValueObject<string> {
       return Result.fail("Invalid email");
     }
 
-    return Result.Ok(new Email(email));
+    return Result.ok(new Email(email));
   }
 
   get value(): string {

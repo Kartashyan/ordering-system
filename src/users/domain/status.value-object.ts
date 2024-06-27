@@ -11,7 +11,7 @@ export class Status extends ValueObject<string> {
       return Result.fail("Invalid status");
     }
 
-    return Result.Ok(new Status(status));
+    return Result.ok(new Status(status));
   }
 
   public static isValid(status: string): boolean {

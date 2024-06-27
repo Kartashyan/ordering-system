@@ -26,6 +26,6 @@ export class OrderItem extends ValueObject<OrderItemProps> {
         if (!Number.isInteger(quantity)) {
             return Result.fail(`Order item quantity <${quantity}> should be a whole number`);
         }
-        return Result.Ok(new OrderItem({ productId, quantity }));
+        return Result.ok(new OrderItem({ productId, quantity }));
     }
 }
