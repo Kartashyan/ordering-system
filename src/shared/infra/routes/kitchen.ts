@@ -1,8 +1,8 @@
 import { Router } from "express";
-import { getNextOrderController } from "../../orders/infra/get-next-order.controller";
-import { kitchenQueue } from "../../orders/infra/kitchen.queue";
-import { orderReadyController } from "../../orders/infra/order-ready.controller";
-import { LocalEventManager } from "../../shared/DomainEvents";
+import { getNextOrderController } from "../../../orders/infra/get-next-order.controller";
+import { kitchenQueue } from "../../../orders/infra/kitchen.queue";
+import { orderReadyController } from "../../../orders/infra/order-ready.controller";
+import { LocalEventManager } from "../../locaal-event-manager";
 const router = Router();
 
 LocalEventManager.subscribeToEvent(

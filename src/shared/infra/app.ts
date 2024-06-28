@@ -5,7 +5,7 @@ import ordersRouter from "./routes/orders";
 import menuRouter from "./routes/menu";
 import kitchenRouter from "./routes/kitchen";
 import { PrismaClient } from "@prisma/client";
-import { kitchenQueue } from "../orders/infra/kitchen.queue";
+import { kitchenQueue } from "../../orders/infra/kitchen.queue";
 const prisma = new PrismaClient();
 
 const app = express();
