@@ -1,7 +1,7 @@
 import { Router } from "express";
-import { createOrderController } from "../../orders/infra/create-order.controller";
-import { pickupOrderController } from "../../orders/infra/pickup-order.controller";
-import { LocalEventManager } from "../../shared/DomainEvents";
+import { createOrderController } from "../../../orders/infra/create-order.controller";
+import { pickupOrderController } from "../../../orders/infra/pickup-order.controller";
+import { LocalEventManager } from "../../DomainEvents";
 const router = Router();
 
 LocalEventManager.subscribeToEvent(
