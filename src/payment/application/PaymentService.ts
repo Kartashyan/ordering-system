@@ -1,4 +1,4 @@
-import { LocalEventManager } from "../../shared/DomainEvents";
+import { LocalEventManager } from "../../shared/locaal-event-manager";
 import { PaymentCreatedEvent } from "../domain/events/PaymentCreatedEvent";
 import {
   PaymentRepository,

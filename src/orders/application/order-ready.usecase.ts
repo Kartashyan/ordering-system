@@ -1,4 +1,4 @@
-import { LocalEventManager } from "../../shared/DomainEvents";
+import { LocalEventManager } from "../../shared/locaal-event-manager";
 import { OrderRepository } from "../domain/ports/order.repo-port";
 import { OrderReadyEvent } from "../domain/events/order-ready.event";
 import { orderRepository } from "../infra/order-prisma.repo-adapter";
