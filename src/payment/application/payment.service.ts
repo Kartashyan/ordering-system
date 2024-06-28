@@ -1,10 +1,10 @@
 import { LocalEventManager } from "../../shared/locaal-event-manager";
-import { PaymentCreatedEvent } from "../domain/events/PaymentCreatedEvent";
+import { PaymentCreatedEvent } from "../domain/events/payment-created.event";
 import {
   PaymentRepository,
-  paymentRepository,
-} from "../domain/ports/PaymentRepository";
+} from "../domain/ports/payment-repo.port";
 import { Payment } from "../domain/Payment";
+import { paymentRepository } from "../infra/payment-repo.adapter";
 
 type PaymentData = {
   amount: number;
