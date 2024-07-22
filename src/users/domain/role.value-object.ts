@@ -1,4 +1,5 @@
-import { Result, ValueObject } from "../../shared";
+import { ValueObject } from "../../shared";
+import { DomainError } from "../../shared/core/domain-error";
 
 
 export class Role extends ValueObject<string> {
@@ -6,12 +7,16 @@ export class Role extends ValueObject<string> {
     super(role);
   }
 
-  public static create(role: string): Result<Role> {
+  public static create(role: string): Role {
     if (!Role.isValid(role)) {
-      return Result.fail("Invalid role");
+      throw new DomainError("Invalid role");
     }
 
-    return Result.ok(new Role(role));
+    return new Role(role);
+  }
+
+  get value(): string {
+    return this.props;
   }
 
   public static isValid(role: string): boolean {
