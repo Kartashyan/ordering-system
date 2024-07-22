@@ -1,16 +1,21 @@
-import { Result, ValueObject } from "../../shared";
+import { ValueObject } from "../../shared";
+import { DomainError } from "../../shared/core/domain-error";
 
 export class Password extends ValueObject<string> {
   private constructor(password: string) {
     super(password);
   }
 
-  public static create(password: string): Result<Password> {
+  public static create(password: string): Password {
     if (!Password.isValid(password)) {
-      return Result.fail("Invalid password");
+      throw new DomainError("Invalid password");
     }
 
-    return Result.ok(new Password(password));
+    return new Password(password);
+  }
+
+  get value(): string {
+    return this.props;
   }
 
   public static isValid(password: string): boolean {
