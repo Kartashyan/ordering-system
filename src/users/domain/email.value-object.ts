@@ -1,4 +1,5 @@
-import { Result, ValueObject } from "../../shared";
+import { ValueObject } from "../../shared";
+import { DomainError } from "../../shared/core/domain-error";
 
 
 export class Email extends ValueObject<string> {
@@ -6,12 +7,12 @@ export class Email extends ValueObject<string> {
     super(email);
   }
 
-  public static create(email: string): Result<Email> {
+  public static create(email: string): Email {
     if (!Email.isValid(email)) {
-      return Result.fail("Invalid email");
+      throw new DomainError("Invalid email");
     }
 
-    return Result.ok(new Email(email));
+    return new Email(email);
   }
 
   get value(): string {
