@@ -1,4 +1,5 @@
-import { Result } from "../../shared";
+import { ok, fail, Result } from "../../shared";
+import { DomainError } from "../../shared/core/domain-error";
 import { Email } from "../domain/email.value-object";
 import { Password } from "../domain/password.value-object";
 import { Role } from "../domain/role.value-object";
@@ -18,39 +19,39 @@ export class SignupUseCase {
         this.userRepo = userRepo;
     }
     async execute(command: CommandDTO): Promise<Result<void>> {
+        try {
+            const email = Email.create(command.email);
+            const password = Password.create(command.password);
+            const role = Role.create(command.role);
+            const status = Status.create(command.status);
 
-        const emailOrError = Email.create(command.email);
-        const passwordOrError = Password.create(command.password);
-        const roleOrError = Role.create(command.role);
-        const statusOrError = Status.create(command.status);
 
-        const userPropsError = Result.combine([emailOrError, passwordOrError, roleOrError, statusOrError]);
 
-        if (userPropsError.isFail()) {
-            const errorList = userPropsError.error() as string[];
-            const messaage = errorList.join(", ");
-            return Result.fail(`[signup.use-case]: ${messaage}`);
+            const userProps = {
+                email,
+                password,
+                role,
+                status,
+            };
+
+            const userExists = await this.userRepo.exists(userProps.email.value);
+
+            if (userExists) {
+                return fail("[signup.use-case]: User with this email already exists");
+            }
+
+            const user = User.create(userProps);
+            await this.userRepo.save(user);
+            return ok(undefined);
+        } catch (error) {
+            if (error instanceof DomainError) {
+                return fail(`[signup.use-case]: ${error.message}`);
+            } else if (error instanceof Error) {
+                return fail(`[signup.use-case]: ${error.message}`);
+            }  else {
+                throw error;
+            }
+
         }
-
-        const userProps = {
-            email: emailOrError.value(),
-            password: passwordOrError.value(),
-            role: roleOrError.value(),
-            status: statusOrError.value(),
-        };
-
-        const userExists = await this.userRepo.exists(userProps.email.value);
-
-        if (userExists) {
-            return Result.fail("[signup.use-case]: User with this email already exists");
-        }
-
-        const userOrError = User.create(userProps);
-        if (userOrError.isFail()) {
-            return Result.fail("Invalid user");
-        }
-        const user = userOrError.value();
-        await this.userRepo.save(user);
-        return Result.ok();
     }
 }
