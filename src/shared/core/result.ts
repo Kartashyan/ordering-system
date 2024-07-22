@@ -40,7 +40,7 @@ export class Result<T = void, D = string> {
 		return Object.freeze(fail) as Result<T, D>;
 	}
 
-	public static combine<A = any, B = any>(results: Array<Result<any, any>>) {
+	public static combine(results: Array<Result<any, any>>) {
 		const _results = results.filter((result) => result.isFail());
 		if (_results.length > 0) {
 			const errors = _results.map((result) => result.error());
@@ -63,17 +63,6 @@ export class Result<T = void, D = string> {
 
 	isOk(): boolean {
 		return this.#isOk;
-	}
-
-	toObject(): ResultObject<T, D> {
-		const metaData = {
-			isOk: this.#isOk,
-			isFail: this.#isFail,
-			data: this.#data as T | null,
-			error: this.#error as D | null,
-		}
-
-		return Object.freeze(metaData);
 	}
 }
 
