@@ -1,5 +1,6 @@
 
-import { Aggregate, ID, Result } from "../../shared";
+import { Aggregate, ID } from "../../shared";
+import { DomainError } from "../../shared/core/domain-error";
 import { OrderStatus, OrderStatuses, StatusStateManager } from "./OrderStatusManager";
 import { StatusTransitionFailedEvent } from "./events/wrong-status-transition.event";
 import OrderCreatedEvent from "./order-created.event";
@@ -32,21 +33,21 @@ export class Order extends Aggregate<OrderProps> {
     }
 
     public static create(
-        items: OrderItemProps[],
+        items: OrderItem[],
         id?: ID,
         status?: string
-    ): Result<Order> {
-        const orderItems = items.map((item) => OrderItem.create(item.productId, item.quantity).value());
+    ): Order {
+        const orderItems = items.map((item) => OrderItem.create(item.productId, item.quantity).value);
 
         const order = new Order({ id: id || ID.create(), status: status || OrderStatuses.Pending, items: orderItems});
         if (order.items.length <= 0) {
-            Result.fail("Order should have at least one item");
+            throw new DomainError("Order should have at least one item");
         }
         const isNewOrder = !id;
         if (isNewOrder) {
             order.addEvent(new OrderCreatedEvent(order.getId()));
         }
-        return Result.ok(order);
+        return order;
     }
 
     public changeStatusTo(status: string): void {
