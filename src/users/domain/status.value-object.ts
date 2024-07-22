@@ -1,4 +1,5 @@
-import { Result, ValueObject } from "../../shared";
+import { ValueObject } from "../../shared";
+import { DomainError } from "../../shared/core/domain-error";
 
 
 export class Status extends ValueObject<string> {
@@ -6,12 +7,16 @@ export class Status extends ValueObject<string> {
     super(status);
   }
 
-  public static create(status: string): Result<Status> {
+  public static create(status: string): Status {
     if (!Status.isValid(status)) {
-      return Result.fail("Invalid status");
+      throw new DomainError("Invalid status");
     }
 
-    return Result.ok(new Status(status));
+    return new Status(status);
+  }
+
+  get value(): string {
+    return this.props;
   }
 
   public static isValid(status: string): boolean {
