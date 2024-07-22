@@ -1,4 +1,4 @@
-import { Result } from "../../shared";
+import { ok, fail } from "../../shared";
 import { Order } from "../domain/order.aggregate";
 import { OrderRepository } from "../domain/ports/order.repo-port";
 import { kitchenQueue } from "../infra/kitchen.queue";
@@ -21,14 +21,14 @@ export class GetNextOrderUsecase {
   async execute(): Promise<Result<Order>> {
     const orderId = kitchenQueue.dequeue();
     if (!orderId) {
-      return Result.fail("No orders in queue");
+      return fail("No orders in queue");
     }
     await this.updateOrderStatusUsecase.updateToNext({ id: orderId });
     const order = await this.orderRepository.find(orderId);
     if (!order) {
-      return Result.fail("Order not found");
+      return fail("Order not found");
     }
-    return Result.ok(order);
+    return ok(order);
   }
 }
 

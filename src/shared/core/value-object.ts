@@ -23,6 +23,10 @@ export class ValueObject<Props>{
 
 		return stringifyAndOmit(props) === stringifyAndOmit(otherProps);
 	}
+
+	get value(): Props {
+		return this.props;
+	}
 }
 
 export default ValueObject;

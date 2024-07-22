@@ -1,6 +1,6 @@
 import { SignupUseCase, CommandDTO } from "./signup.use-case";
 import { UserRepositoy } from "../domain/user-repo.port";
-import { Result } from "../../shared";
+import { ok, fail } from "../../shared";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 describe("SignupUseCase", () => {

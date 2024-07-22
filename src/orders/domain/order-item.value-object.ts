@@ -1,4 +1,5 @@
-import { Result, ValueObject } from "../../shared";
+import { ValueObject } from "../../shared";
+import { DomainError } from "../../shared/core/domain-error";
 
 export interface OrderItemProps {
     productId: string;
@@ -18,14 +19,14 @@ export class OrderItem extends ValueObject<OrderItemProps> {
         return this.props.productId;
     }
 
-    public static create(productId: string, quantity: number): Result<OrderItem> {
+    public static create(productId: string, quantity: number): OrderItem {
         if (quantity <= 0) {
-            return Result.fail(`Order item quantity <${quantity}> should be greater than 0`);
+            throw new DomainError(`Order item quantity <${quantity}> should be greater than 0`);
         }
         // quantity should be a whole number
         if (!Number.isInteger(quantity)) {
-            return Result.fail(`Order item quantity <${quantity}> should be a whole number`);
+            throw new DomainError(`Order item quantity <${quantity}> should be a whole number`);
         }
-        return Result.ok(new OrderItem({ productId, quantity }));
+        return new OrderItem({ productId, quantity });
     }
 }
