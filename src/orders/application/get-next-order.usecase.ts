@@ -1,4 +1,4 @@
-import { ok, fail } from "../../shared";
+import { ok, fail, Result } from "../../shared";
 import { Order } from "../domain/order.aggregate";
 import { OrderRepository } from "../domain/ports/order.repo-port";
 import { kitchenQueue } from "../infra/kitchen.queue";
