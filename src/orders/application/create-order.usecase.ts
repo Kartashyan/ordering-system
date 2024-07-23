@@ -2,7 +2,8 @@ import { OrderRepository } from "../domain/ports/order.repo-port";
 import { Order } from "../domain/order.aggregate";
 import { OrderDto } from "../dto/orderDto";
 import { orderRepository } from "../infra/order-prisma.repo-adapter";
-import { ok, fail } from "../../shared";
+import { ok, fail, Result } from "../../shared";
+import { OrderItem } from "../domain/order-item.value-object";
 
 export class CreateOrderUsecase {
   private orderRepository: OrderRepository;
@@ -13,10 +14,11 @@ export class CreateOrderUsecase {
     if (orderDto.items.length === 0) {
       return fail("Order must have at least one item");
     }
-    const orderItems = orderDto.items.map(item => ({
-      productId: item.id.toString(),
-      quantity: item.quantity,
-    }));
+    const orderItems = orderDto.items.map(item => OrderItem.create(
+      item.id.toString(),
+      item.quantity,
+    ));
+
     const order = Order.create(orderItems);
 
     try {
