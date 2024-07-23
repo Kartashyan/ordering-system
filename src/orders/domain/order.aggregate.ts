@@ -4,7 +4,7 @@ import { DomainError } from "../../shared/core/domain-error";
 import { OrderStatus, OrderStatuses, StatusStateManager } from "./OrderStatusManager";
 import { StatusTransitionFailedEvent } from "./events/wrong-status-transition.event";
 import OrderCreatedEvent from "./order-created.event";
-import { OrderItem, OrderItemProps } from "./order-item.value-object";
+import { OrderItem } from "./order-item.value-object";
 
 interface OrderProps {
     id: ID;
@@ -17,11 +17,8 @@ export class Order extends Aggregate<OrderProps> {
         super(props);
     }
 
-    public get items(): OrderItemProps[] {
-        return this.props.items.map((item) => ({
-            productId: item.productId,
-            quantity: item.quantity,
-        }));
+    public get items(): OrderItem[] {
+        return this.props.items;
     }
 
     public get status(): string {
@@ -37,9 +34,8 @@ export class Order extends Aggregate<OrderProps> {
         id?: ID,
         status?: string
     ): Order {
-        const orderItems = items.map((item) => OrderItem.create(item.productId, item.quantity).value);
 
-        const order = new Order({ id: id || ID.create(), status: status || OrderStatuses.Pending, items: orderItems});
+        const order = new Order({ id: id || ID.create(), status: status || OrderStatuses.Pending, items});
         if (order.items.length <= 0) {
             throw new DomainError("Order should have at least one item");
         }
