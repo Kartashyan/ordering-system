@@ -1,11 +1,9 @@
 import { ValueObject } from "../../shared";
 
-export class ProductName extends ValueObject<{ value: string }> {
-    public readonly value: string;
+export class ProductName extends ValueObject<string> {
 
     private constructor(value: string) {
-        super({ value });
-        this.value = value;
+        super(value);
     }
 
     public static create(value: string): ProductName {
