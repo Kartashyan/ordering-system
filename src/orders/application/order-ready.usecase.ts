@@ -2,7 +2,7 @@ import { LocalEventManager } from "../../shared/locaal-event-manager";
 import { OrderRepository } from "../domain/ports/order.repo-port";
 import { OrderReadyEvent } from "../domain/events/order-ready.event";
 import { orderRepository } from "../infra/order-prisma.repo-adapter";
-import { ok, fail } from "../../shared";
+import { ok, fail, Result } from "../../shared";
 
 export class OrderReadyUsecase {
   private orderRepository: OrderRepository;
@@ -25,7 +25,7 @@ export class OrderReadyUsecase {
     }
     await this.orderRepository.save(order);
     LocalEventManager.publishEvent(new OrderReadyEvent(order.getId()));
-    return ok();
+    return ok(undefined);
   }
 }
 
