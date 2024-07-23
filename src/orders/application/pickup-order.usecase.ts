@@ -1,4 +1,4 @@
-import { ok, fail } from "../../shared";
+import { ok, fail, Result } from "../../shared";
 import { OrderStatuses } from "../domain/OrderStatusManager";
 import { OrderRepository } from "../domain/ports/order.repo-port";
 import { orderRepository } from "../infra/order-prisma.repo-adapter";
@@ -23,7 +23,7 @@ export class PickupOrderStatusUsecase {
 
     try {
       await this.orderRepository.save(order);
-      return ok();
+      return ok(undefined);
     } catch (error: unknown) {
       return fail(
         `Error updating order status: ${String(
