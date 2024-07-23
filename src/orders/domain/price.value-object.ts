@@ -1,15 +1,9 @@
 import { ValueObject } from "../../shared";
 
-interface PriceProps {
-  value: number;
-}
-
-export class Price extends ValueObject<PriceProps> {
-  public readonly value: number;
+export class Price extends ValueObject<number> {
 
   private constructor(value: number) {
-    super({ value });
-    this.value = value;
+    super(value);
   }
 
   public static create(value: number): Price {
