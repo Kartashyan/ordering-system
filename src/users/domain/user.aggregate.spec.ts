@@ -8,23 +8,20 @@ import { UserCreatedEvent } from './events/user-created.event';
 
 describe('User', () => {
     const userProps: UserProps = {
-        email: Email.create('test@example.com').value(),
-        password: Password.create('securePassword123').value(),
-        role: Role.create('admin').value(),
-        status: Status.create('active').value(),
+        email: Email.create('test@example.com'),
+        password: Password.create('securePassword123'),
+        role: Role.create('admin'),
+        status: Status.create('active'),
     };
 
     describe('create method', () => {
         it('should successfully create a user', () => {
-            const result = User.create(userProps);
-            expect(result.isOk()).toBe(true);
-            const user = result.value();
+            const user = User.create(userProps);
             expect(user).toBeInstanceOf(User);
         });
 
         it('should add a UserCreatedEvent if no ID is provided', () => {
-            const result = User.create(userProps);
-            const user = result.value();
+            const user = User.create(userProps);
             // Assuming UserCreatedEvent import is missing, it should be imported at the top.
             expect(user.domainEvents.length).toBe(1);
             expect(user.domainEvents[0]).toBeInstanceOf(UserCreatedEvent);
