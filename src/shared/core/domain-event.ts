@@ -1,6 +1,6 @@
 
-export type DomainEvent<D = {}> = {
+export type DomainEvent<D> = {
 	eventName: string;
 	occurredOn: Date;
-	payload?: D;
+	aggregate?: D;
 }
