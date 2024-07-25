@@ -46,7 +46,7 @@ export class User extends Aggregate<UserProps> {
   public static create(props: UserProps, id?: ID): User {
     const user = new User(props, id);
     if (!id) {
-      user.addEvent(new UserCreatedEvent());
+      user.addEvent(new UserCreatedEvent(user));
     }
     return user;
   }
