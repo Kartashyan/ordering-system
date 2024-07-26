@@ -41,7 +41,7 @@ export class Order extends Aggregate<OrderProps> {
         }
         const isNewOrder = !id;
         if (isNewOrder) {
-            order.addEvent(new OrderCreatedEvent(order.getId()));
+            order.addEvent(new OrderCreatedEvent(order));
         }
         return order;
     }
